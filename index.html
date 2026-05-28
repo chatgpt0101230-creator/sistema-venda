@@ -252,6 +252,14 @@ input, select{
 
     <button onclick="backupData()">💾 Fazer Backup</button>
 
+    <button onclick="salvarNuvem()">
+☁ Salvar na Nuvem
+</button>
+
+<button onclick="restaurarNuvem()">
+📥 Restaurar da Nuvem
+</button>
+    
     <button onclick="shareBackup()">📤 Compartilhar Backup</button>
     
     <input type="file" id="restoreFile" hidden>
@@ -731,5 +739,130 @@ async function shareBackup() {
     
 </script>
 
+    <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+
+import {
+
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
+
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyBzpZz666Vsuuxx_FvBTIITCxyHJwRx4K0",
+
+    authDomain: "organizador-web-58a32.firebaseapp.com",
+
+    projectId: "organizador-web-58a32",
+
+    storageBucket: "organizador-web-58a32.firebasestorage.app",
+
+    messagingSenderId: "868666016791",
+
+    appId: "1:868666016791:web:ad99b7ca5f55fac9dd4852"
+
+};
+
+// inicia firebase
+const app = initializeApp(firebaseConfig);
+
+// inicia banco
+const db = getFirestore(app);
+
+// SALVAR NA NUVEM
+window.salvarNuvem = async function(){
+
+    try {
+
+        await setDoc(
+
+            doc(db, "backup", "dados"),
+
+            {
+
+                servicos: servicos,
+
+                tarefas: tarefas,
+
+                dataBackup: new Date().toLocaleString()
+
+            }
+
+        );
+
+        alert("Backup salvo na nuvem com sucesso!");
+
+    } catch (erro) {
+
+        console.log(erro);
+
+        alert("Erro ao salvar backup.");
+
+    }
+
+}
+
+// RESTAURAR DA NUVEM
+window.restaurarNuvem = async function(){
+
+    try {
+
+        const documento = await getDoc(
+
+            doc(db, "backup", "dados")
+
+        );
+
+        if(documento.exists()){
+
+            const dados = documento.data();
+
+            servicos = dados.servicos || [];
+
+            tarefas = dados.tarefas || [];
+
+            // salva local
+            localStorage.setItem(
+                'servicos',
+                JSON.stringify(servicos)
+            );
+
+            localStorage.setItem(
+                'tarefas',
+                JSON.stringify(tarefas)
+            );
+
+            // atualiza tela
+            renderServicos();
+
+            renderTarefas();
+
+            updateDashboard();
+
+            alert("Backup restaurado com sucesso!");
+
+        } else {
+
+            alert("Nenhum backup encontrado.");
+
+        }
+
+    } catch (erro) {
+
+        console.log(erro);
+
+        alert("Erro ao restaurar backup.");
+
+    }
+
+}
+
+</script>
+    
 </body>
 </html>
