@@ -663,58 +663,68 @@ updateDashboard();
 async function shareBackup() {
 
     const dados = {
-        servicos,
-        tarefas
+        servicos: servicos,
+        tarefas: tarefas
     };
 
-    const json = JSON.stringify(dados, null, 2);
+    // cria JSON correto
+    const jsonString = JSON.stringify(dados, null, 2);
 
+    // cria blob JSON
     const blob = new Blob(
-        [json],
+        [jsonString],
         { type: 'application/json' }
     );
 
+    // cria arquivo .json
     const file = new File(
         [blob],
         'backup-organizador.json',
         { type: 'application/json' }
     );
 
-    if (navigator.share) {
+    // verifica suporte completo
+    if (
+        navigator.share &&
+        navigator.canShare &&
+        navigator.canShare({ files: [file] })
+    ) {
 
         try {
 
             await navigator.share({
+
                 title: 'Backup Organizador',
-                text: 'Backup do sistema'
+
+                text: 'Arquivo de backup do sistema',
+
+                files: [file]
+
             });
 
-            const a = document.createElement('a');
+        } catch (error) {
 
-            a.href = URL.createObjectURL(blob);
-
-            a.download = 'backup-organizador.json';
-
-            a.click();
-
-        } catch (err) {
-
-            console.log(err);
+            console.log(error);
 
         }
 
     } else {
 
+        // fallback baixa o arquivo JSON
         const a = document.createElement('a');
 
         a.href = URL.createObjectURL(blob);
 
         a.download = 'backup-organizador.json';
 
+        document.body.appendChild(a);
+
         a.click();
 
+        document.body.removeChild(a);
+
         alert(
-            'Seu navegador não suporta compartilhamento direto. O backup foi baixado.'
+            'Seu navegador não suporta compartilhamento de arquivos. O backup foi baixado.'
         );
     }
 }
