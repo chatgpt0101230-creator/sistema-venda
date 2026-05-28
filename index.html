@@ -252,6 +252,8 @@ input, select{
 
     <button onclick="backupData()">💾 Fazer Backup</button>
 
+    <button onclick="shareBackup()">📤 Compartilhar Backup</button>
+    
     <input type="file" id="restoreFile" hidden>
 
     <button onclick="document.getElementById('restoreFile').click()">
@@ -657,7 +659,48 @@ document.getElementById('restoreFile')
 renderServicos();
 renderTarefas();
 updateDashboard();
+async function shareBackup(){
 
+    const dados = {
+        servicos,
+        tarefas
+    };
+
+    const json = JSON.stringify(dados, null, 2);
+
+    const blob = new Blob(
+        [json],
+        { type: 'application/json' }
+    );
+
+    const file = new File(
+        [blob],
+        'backup-organizador.json',
+        { type: 'application/json' }
+    );
+
+    if (navigator.share && navigator.canShare({ files: [file] })) {
+
+        try {
+
+            await navigator.share({
+                title: 'Backup Organizador',
+                text: 'Backup do sistema',
+                files: [file]
+            });
+
+        } catch(err){
+
+            console.log(err);
+
+        }
+
+    } else {
+
+        alert('Seu navegador não suporta compartilhamento.');
+    }
+}
+    
 </script>
 
 </body>
