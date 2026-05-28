@@ -659,7 +659,8 @@ document.getElementById('restoreFile')
 renderServicos();
 renderTarefas();
 updateDashboard();
-async function shareBackup(){
+    
+async function shareBackup() {
 
     const dados = {
         servicos,
@@ -679,17 +680,24 @@ async function shareBackup(){
         { type: 'application/json' }
     );
 
-    if (navigator.share && navigator.canShare({ files: [file] })) {
+    if (navigator.share) {
 
         try {
 
             await navigator.share({
                 title: 'Backup Organizador',
-                text: 'Backup do sistema',
-                files: [file]
+                text: 'Backup do sistema'
             });
 
-        } catch(err){
+            const a = document.createElement('a');
+
+            a.href = URL.createObjectURL(blob);
+
+            a.download = 'backup-organizador.json';
+
+            a.click();
+
+        } catch (err) {
 
             console.log(err);
 
@@ -697,7 +705,17 @@ async function shareBackup(){
 
     } else {
 
-        alert('Seu navegador não suporta compartilhamento.');
+        const a = document.createElement('a');
+
+        a.href = URL.createObjectURL(blob);
+
+        a.download = 'backup-organizador.json';
+
+        a.click();
+
+        alert(
+            'Seu navegador não suporta compartilhamento direto. O backup foi baixado.'
+        );
     }
 }
     
