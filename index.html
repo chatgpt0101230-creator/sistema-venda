@@ -608,6 +608,25 @@ function addServico(){
     renderClientes();
 
     renderServicos();
+
+    /* LIMPAR FORMULÁRIO */
+
+document.getElementById('clienteSelect').value='';
+
+document.getElementById('novoCliente').value='';
+
+document.getElementById('telefoneCliente').value='';
+
+document.getElementById('servico').value='';
+
+document.getElementById('valor').value='';
+
+document.getElementById('entrega').value='';
+
+document.getElementById('observacao').value='';
+
+document.getElementById('status').value='Pendente';
+    
 }
 
 function renderServicos(){
