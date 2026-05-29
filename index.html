@@ -183,54 +183,7 @@ textarea{
     background:#16a34a;
 }
 
-@media(max-width:768px){
-
-    .container{
-        display:block;
-    }
-
-   .sidebar{
-
-    width:250px;
-
-    background:#1f2937;
-
-    color:white;
-
-    padding:20px;
-
-    transition:0.3s;
-}
-
-/* menu recolhido */
-
-.sidebar.hide{
-
-    margin-left:-250px;
-}
-
-/* botão menu */
-
-.menu-toggle{
-
-    background:#111827;
-
-    color:white;
-
-    border:none;
-
-    padding:12px;
-
-    width:100%;
-
-    font-size:20px;
-
-    cursor:pointer;
-
-    display:none;
-}
-
-/* RESPONSIVO */
+/* MENU LATERAL */
 
 .sidebar{
 
@@ -273,7 +226,7 @@ textarea{
     display:none;
 }
 
-/* celular */
+/* RESPONSIVO */
 
 @media(max-width:768px){
 
@@ -305,19 +258,18 @@ textarea{
         padding:15px;
     }
 }
+    
 </style>
 
-</head>
-
-<body>
-
 <header>
-📋 Organizador Profissional
-</header>
 
 <button class="menu-toggle" onclick="toggleMenu()">
-☰ Menu
+☰
 </button>
+
+📋 Organizador Profissional
+
+</header>
     
 <div class="container">
 
