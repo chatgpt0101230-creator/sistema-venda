@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
@@ -25,6 +26,8 @@ body{
     background:#f3f4f6;
 }
 
+/* HEADER */
+
 header{
 
     background:#111827;
@@ -42,180 +45,15 @@ header{
     align-items:center;
 
     gap:15px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:2000;
 }
 
-.container{
-    display:flex;
-    min-height:100vh;
-}
-
-.sidebar{
-    width:250px;
-    background:#1f2937;
-    color:white;
-    padding:20px;
-}
-
-.sidebar h2{
-    margin-bottom:20px;
-}
-
-.sidebar button{
-    width:100%;
-    padding:12px;
-    border:none;
-    background:#374151;
-    color:white;
-    margin-bottom:10px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.sidebar button:hover{
-    background:#4b5563;
-}
-
-.content{
-    flex:1;
-    padding:20px;
-}
-
-.tab{
-    display:none;
-}
-
-.tab.active{
-    display:block;
-}
-
-.card{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    margin-bottom:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.08);
-}
-
-input,
-select,
-textarea{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
-}
-
-textarea{
-    min-height:90px;
-}
-
-.btn{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:8px;
-    cursor:pointer;
-    margin-top:15px;
-    width:100%;
-}
-
-.btn:hover{
-    background:#1d4ed8;
-}
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-    margin-bottom:20px;
-}
-
-.box{
-    padding:20px;
-    border-radius:12px;
-    color:white;
-    text-align:center;
-}
-
-.item{
-    background:white;
-    padding:15px;
-    border-radius:12px;
-    margin-bottom:10px;
-}
-
-.actions{
-    margin-top:10px;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.actions button{
-    border:none;
-    padding:10px;
-    border-radius:8px;
-    color:white;
-    cursor:pointer;
-}
-
-.edit{
-    background:#2563eb;
-}
-
-.delete{
-    background:#dc2626;
-}
-
-.done{
-    background:#16a34a;
-}
-
-.status{
-    padding:5px 10px;
-    border-radius:20px;
-    color:white;
-    display:inline-block;
-    margin-top:10px;
-}
-
-.pendente{
-    background:#dc2626;
-}
-
-.andamento{
-    background:#d97706;
-}
-
-.pronto{
-    background:#16a34a;
-}
-
-/* MENU LATERAL */
-
-.sidebar{
-
-    width:250px;
-
-    background:#1f2937;
-
-    color:white;
-
-    padding:20px;
-
-    transition:0.3s;
-}
-
-/* menu escondido */
-
-.sidebar.hide{
-
-    transform:translateX(-100%);
-}
-
-/* botão menu */
+/* BOTÃO MENU */
 
 .menu-toggle{
 
@@ -232,10 +70,236 @@ textarea{
     font-size:22px;
 
     cursor:pointer;
+}
 
+/* LAYOUT */
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    width:250px;
+
+    background:#1f2937;
+
+    color:white;
+
+    padding:20px;
+
+    transition:0.3s;
+}
+
+.sidebar.hide{
+
+    transform:translateX(-100%);
+}
+
+.sidebar h2{
+    margin-bottom:20px;
+}
+
+.sidebar button{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    background:#374151;
+
+    color:white;
+
+    margin-bottom:10px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+.sidebar button:hover{
+    background:#4b5563;
+}
+
+/* CONTENT */
+
+.content{
+    flex:1;
+    padding:20px;
+}
+
+.tab{
+    display:none;
+}
+
+.tab.active{
     display:block;
+}
 
-    z-index:2000;
+/* CARD */
+
+.card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:10px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+}
+
+textarea{
+    min-height:90px;
+}
+
+/* BOTÕES */
+
+.btn{
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    margin-top:15px;
+
+    width:100%;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+    gap:15px;
+
+    margin-bottom:20px;
+}
+
+.box{
+
+    padding:20px;
+
+    border-radius:12px;
+
+    color:white;
+
+    text-align:center;
+}
+
+/* ITENS */
+
+.item{
+
+    background:white;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    margin-bottom:10px;
+}
+
+.actions{
+
+    margin-top:10px;
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+.actions button{
+
+    border:none;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.edit{
+    background:#2563eb;
+}
+
+.delete{
+    background:#dc2626;
+}
+
+.done{
+    background:#16a34a;
+}
+
+/* STATUS */
+
+.status{
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    color:white;
+
+    display:inline-block;
+
+    margin-top:10px;
+}
+
+.pendente{
+    background:#dc2626;
+}
+
+.andamento{
+    background:#d97706;
+}
+
+.pronto{
+    background:#16a34a;
 }
 
 /* RESPONSIVO */
@@ -243,12 +307,6 @@ textarea{
 @media(max-width:768px){
 
     .container{
-
-        display:block;
-    }
-
-    .menu-toggle{
-
         display:block;
     }
 
@@ -266,12 +324,15 @@ textarea{
     }
 
     .content{
-
         padding:15px;
     }
 }
-    
+
 </style>
+
+</head>
+
+<body>
 
 <header>
 
@@ -282,7 +343,7 @@ textarea{
 📋 Organizador Profissional
 
 </header>
-    
+
 <div class="container">
 
 <div class="sidebar hide">
@@ -468,7 +529,6 @@ Adicionar Compromisso
 
 </div>
 
-  
 <script>
 
 let servicos =
@@ -479,6 +539,18 @@ JSON.parse(localStorage.getItem('tarefas')) || [];
 
 let clientes =
 JSON.parse(localStorage.getItem('clientes')) || [];
+
+/* MENU */
+
+function toggleMenu(){
+
+    const sidebar =
+    document.querySelector('.sidebar');
+
+    sidebar.classList.toggle('hide');
+}
+
+/* ABAS */
 
 function showTab(id){
 
@@ -491,7 +563,16 @@ function showTab(id){
 
     document.getElementById(id)
     .classList.add('active');
+
+    if(window.innerWidth <= 768){
+
+        document
+        .querySelector('.sidebar')
+        .classList.add('hide');
+    }
 }
+
+/* SALVAR */
 
 function saveData(){
 
@@ -515,6 +596,8 @@ function saveData(){
     updateTarefaDashboard();
 }
 
+/* CLIENTES */
+
 function renderClientes(){
 
     const select =
@@ -535,6 +618,8 @@ function renderClientes(){
         `;
     });
 }
+
+/* SERVIÇOS */
 
 function addServico(){
 
@@ -581,7 +666,6 @@ function addServico(){
 
             nome:cliente,
             telefone:telefone
-
         });
     }
 
@@ -596,7 +680,6 @@ function addServico(){
         entrega,
         observacao,
         status
-
     });
 
     saveData();
@@ -613,6 +696,8 @@ function addServico(){
     document.getElementById('observacao').value='';
 }
 
+/* RENDER SERVIÇOS */
+
 function renderServicos(){
 
     const lista =
@@ -622,7 +707,7 @@ function renderServicos(){
 
     servicos.forEach(s=>{
 
-        let classe = 'pendente';
+        let classe='pendente';
 
         if(s.status==='Em andamento'){
             classe='andamento';
@@ -676,6 +761,8 @@ function renderServicos(){
     });
 }
 
+/* STATUS */
+
 function alterarStatus(id){
 
     const novo =
@@ -705,6 +792,8 @@ function alterarStatus(id){
     renderServicos();
 }
 
+/* EXCLUIR */
+
 function removerServico(id){
 
     if(confirm('Excluir serviço?')){
@@ -717,6 +806,8 @@ function removerServico(id){
         renderServicos();
     }
 }
+
+/* TAREFAS */
 
 function addTarefa(){
 
@@ -745,7 +836,6 @@ function addTarefa(){
         data,
 
         feito:false
-
     });
 
     saveData();
@@ -828,6 +918,8 @@ function removerTarefa(id){
     }
 }
 
+/* DASHBOARD */
+
 function updateDashboard(){
 
     document.getElementById(
@@ -875,6 +967,8 @@ function updateTarefaDashboard(){
     tarefas.length - feitos;
 }
 
+/* BACKUP */
+
 function backupData(){
 
     const dados = {
@@ -882,7 +976,6 @@ function backupData(){
         servicos,
         tarefas,
         clientes
-
     };
 
     const blob =
@@ -891,7 +984,6 @@ function backupData(){
         [JSON.stringify(dados)],
 
         {type:'application/json'}
-
     );
 
     const a =
@@ -905,6 +997,8 @@ function backupData(){
 
     a.click();
 }
+
+/* RESTAURAR */
 
 document.getElementById('restoreFile')
 .addEventListener('change', function(e){
@@ -935,7 +1029,6 @@ document.getElementById('restoreFile')
         renderTarefas();
 
         alert('Backup restaurado!');
-
     };
 
     reader.readAsText(file);
@@ -949,160 +1042,6 @@ renderTarefas();
 
 updateDashboard();
 
-</script>
-
-<!-- ================================= -->
-<!-- FIREBASE -->
-<!-- ================================= -->
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-
-import {
-
-getFirestore,
-doc,
-setDoc,
-getDoc
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
-
-const firebaseConfig = {
-
-apiKey:
-"AIzaSyBzpZz666Vsuuxx_FvBTIITCxyHJwRx4K0",
-
-authDomain:
-"organizador-web-58a32.firebaseapp.com",
-
-projectId:
-"organizador-web-58a32",
-
-storageBucket:
-"organizador-web-58a32.firebasestorage.app",
-
-messagingSenderId:
-"868666016791",
-
-appId:
-"1:868666016791:web:ad99b7ca5f55fac9dd4852"
-
-};
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
-
-window.salvarNuvem =
-async function(){
-
-    try {
-
-        await setDoc(
-
-            doc(db, "backup", "dados"),
-
-            {
-
-                servicos,
-                tarefas,
-                clientes,
-
-                data:
-                new Date().toLocaleString()
-
-            }
-
-        );
-
-        alert(
-        "Backup salvo na nuvem!"
-        );
-
-    } catch(e){
-
-        console.log(e);
-
-        alert(
-        "Erro ao salvar."
-        );
-    }
-}
-
-window.restaurarNuvem =
-async function(){
-
-    try {
-
-        const documento =
-        await getDoc(
-            doc(db, "backup", "dados")
-        );
-
-        if(documento.exists()){
-
-            const dados =
-            documento.data();
-
-            servicos =
-            dados.servicos || [];
-
-            tarefas =
-            dados.tarefas || [];
-
-            clientes =
-            dados.clientes || [];
-
-            saveData();
-
-            renderClientes();
-
-            renderServicos();
-
-            renderTarefas();
-
-            alert(
-            "Backup restaurado!"
-            );
-
-        } else {
-
-            alert(
-            "Nenhum backup encontrado."
-            );
-        }
-
-    } catch(e){
-
-        console.log(e);
-
-        alert(
-        "Erro ao restaurar."
-        );
-    }
-}
-
-function toggleMenu(){
-
-    const sidebar =
-    document.querySelector('.sidebar');
-
-    if(sidebar.classList.contains('hide')){
-
-        sidebar.classList.remove('hide');
-
-    } else {
-
-        sidebar.classList.add('hide');
-    }
-}
-    
 </script>
 
 </body>
