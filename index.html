@@ -189,8 +189,72 @@ textarea{
         display:block;
     }
 
+   .sidebar{
+
+    width:250px;
+
+    background:#1f2937;
+
+    color:white;
+
+    padding:20px;
+
+    transition:0.3s;
+}
+
+/* menu recolhido */
+
+.sidebar.hide{
+
+    margin-left:-250px;
+}
+
+/* botão menu */
+
+.menu-toggle{
+
+    background:#111827;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    width:100%;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    display:none;
+}
+
+@media(max-width:768px){
+
+    .menu-toggle{
+
+        display:block;
+    }
+
     .sidebar{
-        width:100%;
+
+        position:fixed;
+
+        z-index:1000;
+
+        height:100vh;
+
+        left:0;
+
+        top:0;
+    }
+
+    .sidebar.hide{
+
+        left:-250px;
+
+        margin-left:0;
     }
 }
 
@@ -204,6 +268,10 @@ textarea{
 📋 Organizador Profissional
 </header>
 
+<button class="menu-toggle" onclick="toggleMenu()">
+☰ Menu
+</button>
+    
 <div class="container">
 
 <div class="sidebar">
@@ -389,6 +457,7 @@ Adicionar Compromisso
 
 </div>
 
+  
 <script>
 
 let servicos =
@@ -1008,6 +1077,14 @@ async function(){
     }
 }
 
+function toggleMenu(){
+
+    document
+    .querySelector('.sidebar')
+    .classList
+    .toggle('hide');
+}
+    
 </script>
 
 </body>
