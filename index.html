@@ -471,6 +471,26 @@ Organizador Premium
 
 <div class="tab active" id="dashboard">
 
+<div class="card">
+
+<h3>📅 Filtro de Período</h3>
+
+<select id="filtroPeriodo" onchange="updateDashboard()">
+
+<option value="todos">Todos os períodos</option>
+
+<option value="hoje">Hoje</option>
+
+<option value="semana">Esta Semana</option>
+
+<option value="mes">Este Mês</option>
+
+<option value="ano">Este Ano</option>
+
+</select>
+
+</div>
+ 
 <div class="dashboard">
 
 <div class="box">
@@ -1075,8 +1095,93 @@ renderTarefas();
 
 function updateDashboard(){
 
+const periodo =
+document.getElementById('filtroPeriodo')
+? document.getElementById('filtroPeriodo').value
+: 'todos';
+
+let lista = [...servicos];
+
+const hoje = new Date();
+
+ if(periodo === 'hoje'){
+
+lista = lista.filter(s=>{
+
+if(!s.entrega) return false;
+
+return s.entrega ===
+hoje.toISOString().split('T')[0];
+
+});
+
+}
+
+ if(periodo === 'semana'){
+
+const inicioSemana =
+new Date(hoje);
+
+inicioSemana.setDate(
+hoje.getDate() - hoje.getDay()
+);
+
+const fimSemana =
+new Date(inicioSemana);
+
+fimSemana.setDate(
+inicioSemana.getDate() + 6
+);
+
+lista = lista.filter(s=>{
+
+if(!s.entrega) return false;
+
+const data =
+new Date(s.entrega);
+
+return data >= inicioSemana &&
+data <= fimSemana;
+
+});
+
+}
+
+ if(periodo === 'mes'){
+
+lista = lista.filter(s=>{
+
+if(!s.entrega) return false;
+
+const data =
+new Date(s.entrega);
+
+return data.getMonth() === hoje.getMonth()
+&&
+data.getFullYear() === hoje.getFullYear();
+
+});
+
+}
+
+ if(periodo === 'ano'){
+
+lista = lista.filter(s=>{
+
+if(!s.entrega) return false;
+
+const data =
+new Date(s.entrega);
+
+return data.getFullYear() ===
+hoje.getFullYear();
+
+});
+
+}
+ 
 document.getElementById('totalServicos')
-.innerText = servicos.length;
+.innerText = lista.length;
 
 document.getElementById('totalCompromissos')
 .innerText = tarefas.length;
@@ -1084,7 +1189,7 @@ document.getElementById('totalCompromissos')
 let pronto = 0;
 let pendente = 0;
 
-servicos.forEach(s=>{
+lista.forEach(s=>{
 
 if(s.status === 'Pronto'){
 
@@ -1112,50 +1217,136 @@ let chart;
 
 function renderGrafico(){
 
-const ctx =
-document.getElementById('grafico');
+    const periodo =
+    document.getElementById('filtroPeriodo')
+    ? document.getElementById('filtroPeriodo').value
+    : 'todos';
 
-const pendentes =
-servicos.filter(s=>s.status==='Pendente').length;
+    let lista = [...servicos];
 
-const andamento =
-servicos.filter(s=>s.status==='Em andamento').length;
+    const hoje = new Date();
 
-const prontos =
-servicos.filter(s=>s.status==='Pronto').length;
+    /* FILTRO SEMANA */
 
-if(chart){
-chart.destroy();
+    if(periodo === 'semana'){
+
+        lista = lista.filter(s=>{
+
+            if(!s.entrega) return false;
+
+            const data = new Date(s.entrega);
+
+            const diff =
+            (hoje - data) / (1000 * 60 * 60 * 24);
+
+            return diff <= 7;
+
+        });
+
+    }
+
+    /* FILTRO MÊS */
+
+    if(periodo === 'mes'){
+
+        lista = lista.filter(s=>{
+
+            if(!s.entrega) return false;
+
+            const data = new Date(s.entrega);
+
+            return (
+                data.getMonth() === hoje.getMonth() &&
+                data.getFullYear() === hoje.getFullYear()
+            );
+
+        });
+
+    }
+
+    /* FILTRO ANO */
+
+    if(periodo === 'ano'){
+
+        lista = lista.filter(s=>{
+
+            if(!s.entrega) return false;
+
+            const data = new Date(s.entrega);
+
+            return (
+                data.getFullYear() === hoje.getFullYear()
+            );
+
+        });
+
+    }
+
+    /* CONTADORES */
+
+    const pendentes =
+    lista.filter(
+        s => s.status === 'Pendente'
+    ).length;
+
+    const andamento =
+    lista.filter(
+        s => s.status === 'Em andamento'
+    ).length;
+
+    const prontos =
+    lista.filter(
+        s => s.status === 'Pronto'
+    ).length;
+
+    const ctx =
+    document.getElementById('grafico');
+
+    if(chart){
+        chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+
+        type:'doughnut',
+
+        data:{
+
+            labels:[
+                'Pendentes',
+                'Em andamento',
+                'Prontos'
+            ],
+
+            datasets:[{
+
+                data:[
+                    pendentes,
+                    andamento,
+                    prontos
+                ]
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            plugins:{
+
+                legend:{
+                    position:'bottom'
+                }
+
+            }
+
+        }
+
+    });
+
 }
-
-chart = new Chart(ctx, {
-
-type:'doughnut',
-
-data:{
-
-labels:[
-'Pendentes',
-'Andamento',
-'Prontos'
-],
-
-datasets:[{
-
-data:[
-pendentes,
-andamento,
-prontos
-]
-
-}]
-
-}
-
-});
-
-}
-
 /* BACKUP */
 
 function backupData(){
