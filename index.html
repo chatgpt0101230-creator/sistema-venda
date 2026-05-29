@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Organizador Profissional</title>
@@ -31,16 +29,21 @@ header{
     display:flex;
     align-items:center;
     gap:15px;
-    font-size:24px;
-    font-weight:bold;
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
-/* MENU */
+header h1{
+    font-size:24px;
+}
+
+/* BOTÃO MENU */
 
 .menu-toggle{
     background:#374151;
-    border:none;
     color:white;
+    border:none;
     padding:10px 15px;
     border-radius:8px;
     font-size:22px;
@@ -53,6 +56,8 @@ header{
     display:flex;
     min-height:100vh;
 }
+
+/* SIDEBAR */
 
 .sidebar{
     width:260px;
@@ -72,25 +77,26 @@ header{
 
 .sidebar button{
     width:100%;
-    padding:12px;
+    padding:14px;
     border:none;
     background:#374151;
     color:white;
-    margin-bottom:10px;
-    border-radius:8px;
+    margin-bottom:12px;
+    border-radius:12px;
     cursor:pointer;
+    font-size:16px;
 }
 
 .sidebar button:hover{
     background:#4b5563;
 }
 
+/* CONTEÚDO */
+
 .content{
     flex:1;
     padding:20px;
 }
-
-/* ABAS */
 
 .tab{
     display:none;
@@ -105,12 +111,16 @@ header{
 .card{
     background:white;
     padding:20px;
-    border-radius:12px;
+    border-radius:16px;
     margin-bottom:20px;
     box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
-/* FORM */
+.card h2{
+    margin-bottom:15px;
+}
+
+/* INPUTS */
 
 input,
 select,
@@ -118,23 +128,27 @@ textarea{
     width:100%;
     padding:12px;
     margin-top:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
+    border-radius:10px;
+    border:1px solid #d1d5db;
+    font-size:15px;
 }
 
 textarea{
     min-height:100px;
 }
 
+/* BOTÕES */
+
 .btn{
     background:#2563eb;
     color:white;
     border:none;
-    padding:12px;
-    border-radius:8px;
+    padding:14px;
+    border-radius:12px;
     cursor:pointer;
     margin-top:15px;
     width:100%;
+    font-size:16px;
 }
 
 .btn:hover{
@@ -151,33 +165,44 @@ textarea{
 }
 
 .box{
-    padding:20px;
-    border-radius:12px;
+    padding:25px;
+    border-radius:18px;
     color:white;
     text-align:center;
+}
+
+.box h2{
+    font-size:28px;
+    margin-bottom:10px;
 }
 
 /* LISTAS */
 
 .item{
     background:white;
-    padding:15px;
-    border-radius:12px;
+    padding:18px;
+    border-radius:16px;
     margin-bottom:15px;
     box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
+.item h3{
+    margin-bottom:10px;
+}
+
+/* AÇÕES */
+
 .actions{
+    margin-top:15px;
     display:flex;
     gap:10px;
     flex-wrap:wrap;
-    margin-top:15px;
 }
 
 .actions button{
     border:none;
-    padding:10px;
-    border-radius:8px;
+    padding:10px 15px;
+    border-radius:10px;
     color:white;
     cursor:pointer;
 }
@@ -197,11 +222,12 @@ textarea{
 /* STATUS */
 
 .status{
-    padding:5px 10px;
+    padding:6px 12px;
     border-radius:20px;
     color:white;
     display:inline-block;
     margin-top:10px;
+    font-size:14px;
 }
 
 .pendente{
@@ -216,7 +242,7 @@ textarea{
     background:#16a34a;
 }
 
-/* RESPONSIVO */
+/* MOBILE */
 
 @media(max-width:768px){
 
@@ -229,13 +255,15 @@ textarea{
     }
 
     .content{
-        width:100%;
         padding:15px;
+    }
+
+    .dashboard{
+        grid-template-columns:1fr;
     }
 }
 
 </style>
-
 </head>
 
 <body>
@@ -246,7 +274,7 @@ textarea{
 ☰
 </button>
 
-📋 Organizador Profissional
+<h1>📋 Organizador Profissional</h1>
 
 </header>
 
@@ -274,18 +302,10 @@ textarea{
 📅 Organização Diária
 </button>
 
-<hr style="margin:20px 0;">
+<hr style="margin:25px 0;">
 
 <button onclick="backupData()">
 💾 Fazer Backup
-</button>
-
-<button onclick="salvarNuvem()">
-☁ Salvar na Nuvem
-</button>
-
-<button onclick="restaurarNuvem()">
-📥 Restaurar da Nuvem
 </button>
 
 <input type="file" id="restoreFile" hidden>
@@ -312,18 +332,18 @@ textarea{
 </div>
 
 <div class="box" style="background:#16a34a;">
-<h2 id="valorConcluidos">R$ 0</h2>
+<h2 id="valorPronto">R$ 0</h2>
 <p>Valor Concluído</p>
 </div>
 
 <div class="box" style="background:#dc2626;">
-<h2 id="valorPendentes">R$ 0</h2>
+<h2 id="valorPendente">R$ 0</h2>
 <p>Valor Pendente</p>
 </div>
 
 <div class="box" style="background:#7c3aed;">
-<h2 id="valorTotal">R$ 0</h2>
-<p>Valor Total</p>
+<h2 id="totalConcluidos">0</h2>
+<p>Concluídos</p>
 </div>
 
 </div>
@@ -339,50 +359,25 @@ textarea{
 <h2>Cadastrar Serviço</h2>
 
 <select id="clienteSelect">
-
-<option value="">
-Selecionar Cliente
-</option>
-
+<option value="">Selecionar Cliente</option>
 </select>
 
-<input type="text"
-id="novoCliente"
-placeholder="Novo Cliente">
+<input type="text" id="novoCliente" placeholder="Novo cliente">
 
-<input type="text"
-id="telefoneCliente"
-placeholder="Telefone">
+<input type="text" id="telefoneCliente" placeholder="Telefone">
 
-<input type="text"
-id="servico"
-placeholder="Serviço">
+<input type="text" id="servico" placeholder="Serviço">
 
-<input type="number"
-id="valor"
-placeholder="Valor">
+<input type="number" id="valor" placeholder="Valor">
 
-<input type="date"
-id="entrega">
+<input type="date" id="entrega">
 
-<textarea
-id="observacao"
-placeholder="Observação"></textarea>
+<textarea id="observacao" placeholder="Observação"></textarea>
 
 <select id="status">
-
-<option value="Pendente">
-Pendente
-</option>
-
-<option value="Em andamento">
-Em andamento
-</option>
-
-<option value="Pronto">
-Pronto
-</option>
-
+<option value="Pendente">Pendente</option>
+<option value="Em andamento">Em andamento</option>
+<option value="Pronto">Pronto</option>
 </select>
 
 <button class="btn" onclick="addServico()">
@@ -428,15 +423,11 @@ Cadastrar Serviço
 
 <h2>Organização Diária</h2>
 
-<input type="text"
-id="tarefa"
-placeholder="Compromisso">
+<input type="text" id="tarefa" placeholder="Compromisso">
 
-<input type="time"
-id="hora">
+<input type="time" id="hora">
 
-<input type="date"
-id="dataTarefa">
+<input type="date" id="dataTarefa">
 
 <button class="btn" onclick="addTarefa()">
 Adicionar Compromisso
@@ -467,10 +458,10 @@ JSON.parse(localStorage.getItem('clientes')) || [];
 
 function toggleMenu(){
 
-    const sidebar =
-    document.querySelector('.sidebar');
-
-    sidebar.classList.toggle('hide');
+    document
+    .querySelector('.sidebar')
+    .classList
+    .toggle('hide');
 }
 
 /* ABAS */
@@ -489,8 +480,6 @@ function showTab(id){
     .classList
     .add('active');
 
-    /* FECHAR MENU NO CELULAR */
-
     if(window.innerWidth <= 768){
 
         document
@@ -499,9 +488,10 @@ function showTab(id){
         .add('hide');
     }
 }
+
 /* SALVAR */
 
-function saveData(){
+async function saveData(){
 
     localStorage.setItem(
         'servicos',
@@ -521,6 +511,8 @@ function saveData(){
     updateDashboard();
 
     updateTarefaDashboard();
+
+    sincronizarNuvem();
 }
 
 /* CLIENTES */
@@ -543,7 +535,7 @@ function renderClientes(){
     });
 }
 
-/* SERVIÇOS */
+/* CADASTRAR SERVIÇO */
 
 function addServico(){
 
@@ -581,11 +573,16 @@ function addServico(){
         return;
     }
 
-    if(!clientes.find(c=>c.nome===cliente)){
+    const existe =
+    clientes.find(c=>c.nome===cliente);
+
+    if(!existe){
 
         clientes.push({
+
             nome:cliente,
             telefone:telefone
+
         });
     }
 
@@ -609,25 +606,26 @@ function addServico(){
 
     renderServicos();
 
-    /* LIMPAR FORMULÁRIO */
+    limparFormulario();
 
-document.getElementById('clienteSelect').value='';
-
-document.getElementById('novoCliente').value='';
-
-document.getElementById('telefoneCliente').value='';
-
-document.getElementById('servico').value='';
-
-document.getElementById('valor').value='';
-
-document.getElementById('entrega').value='';
-
-document.getElementById('observacao').value='';
-
-document.getElementById('status').value='Pendente';
-    
+    alert('Serviço cadastrado!');
 }
+
+/* LIMPAR */
+
+function limparFormulario(){
+
+    document.getElementById('clienteSelect').value='';
+    document.getElementById('novoCliente').value='';
+    document.getElementById('telefoneCliente').value='';
+    document.getElementById('servico').value='';
+    document.getElementById('valor').value='';
+    document.getElementById('entrega').value='';
+    document.getElementById('observacao').value='';
+    document.getElementById('status').value='Pendente';
+}
+
+/* RENDER SERVIÇOS */
 
 function renderServicos(){
 
@@ -638,22 +636,24 @@ function renderServicos(){
 
     servicos.sort((a,b)=>{
 
-        if(a.status==="Pronto") return 1;
+        if(a.status === 'Pronto' &&
+           b.status !== 'Pronto') return 1;
 
-        if(b.status==="Pronto") return -1;
+        if(a.status !== 'Pronto' &&
+           b.status === 'Pronto') return -1;
 
-        return 0;
+        return b.id - a.id;
     });
 
     servicos.forEach(s=>{
 
         let classe='pendente';
 
-        if(s.status==="Em andamento"){
+        if(s.status==='Em andamento'){
             classe='andamento';
         }
 
-        if(s.status==="Pronto"){
+        if(s.status==='Pronto'){
             classe='pronto';
         }
 
@@ -662,6 +662,9 @@ function renderServicos(){
         <div class="item">
 
         <h3>${s.cliente}</h3>
+
+        <p><strong>Telefone:</strong>
+        ${s.telefone || '-'}</p>
 
         <p><strong>Serviço:</strong>
         ${s.servico}</p>
@@ -673,7 +676,7 @@ function renderServicos(){
         ${s.entrega}</p>
 
         <p><strong>Observação:</strong>
-        ${s.observacao}</p>
+        ${s.observacao || '-'}</p>
 
         <span class="status ${classe}">
         ${s.status}
@@ -703,15 +706,20 @@ function renderServicos(){
     });
 }
 
+/* EDITAR */
+
 function editarServico(id){
 
     const s =
     servicos.find(x=>x.id===id);
 
     const novoServico =
-    prompt("Editar serviço", s.servico);
+    prompt(
+    'Editar serviço:',
+    s.servico
+    );
 
-    if(novoServico){
+    if(novoServico !== null){
 
         s.servico = novoServico;
 
@@ -721,17 +729,19 @@ function editarServico(id){
     }
 }
 
-function alterarStatus(id){
+/* STATUS */
 
-    const servico =
-    servicos.find(s=>s.id===id);
+function alterarStatus(id){
 
     const novo =
     prompt(
-`1=Pendente
-2=Em andamento
-3=Pronto`
+`1 = Pendente
+2 = Em andamento
+3 = Pronto`
     );
+
+    const servico =
+    servicos.find(s=>s.id===id);
 
     if(novo==1){
         servico.status='Pendente';
@@ -750,6 +760,8 @@ function alterarStatus(id){
     renderServicos();
 }
 
+/* REMOVER */
+
 function removerServico(id){
 
     if(confirm('Excluir serviço?')){
@@ -761,48 +773,6 @@ function removerServico(id){
 
         renderServicos();
     }
-}
-
-/* DASHBOARD */
-
-function updateDashboard(){
-
-    document.getElementById(
-        'totalServicos'
-    ).innerText = servicos.length;
-
-    let total = 0;
-    let concluidos = 0;
-    let pendentes = 0;
-
-    servicos.forEach(s=>{
-
-        const valor =
-        Number(s.valor || 0);
-
-        total += valor;
-
-        if(s.status==="Pronto"){
-            concluidos += valor;
-        } else {
-            pendentes += valor;
-        }
-    });
-
-    document.getElementById(
-        'valorTotal'
-    ).innerText =
-    'R$ ' + total.toFixed(2);
-
-    document.getElementById(
-        'valorConcluidos'
-    ).innerText =
-    'R$ ' + concluidos.toFixed(2);
-
-    document.getElementById(
-        'valorPendentes'
-    ).innerText =
-    'R$ ' + pendentes.toFixed(2);
 }
 
 /* TAREFAS */
@@ -817,6 +787,13 @@ function addTarefa(){
 
     const data =
     document.getElementById('dataTarefa').value;
+
+    if(!tarefa){
+
+        alert('Digite a tarefa');
+
+        return;
+    }
 
     tarefas.push({
 
@@ -833,7 +810,13 @@ function addTarefa(){
     saveData();
 
     renderTarefas();
+
+    document.getElementById('tarefa').value='';
+    document.getElementById('hora').value='';
+    document.getElementById('dataTarefa').value='';
 }
+
+/* RENDER TAREFAS */
 
 function renderTarefas(){
 
@@ -850,9 +833,11 @@ function renderTarefas(){
 
         <h3>${t.tarefa}</h3>
 
-        <p>${t.hora}</p>
+        <p><strong>Hora:</strong>
+        ${t.hora}</p>
 
-        <p>${t.data}</p>
+        <p><strong>Data:</strong>
+        ${t.data}</p>
 
         <p>
         ${t.feito ? '✅ Feito' : '❌ Pendente'}
@@ -879,6 +864,8 @@ function renderTarefas(){
     updateTarefaDashboard();
 }
 
+/* TOGGLE TAREFA */
+
 function toggleTarefa(id){
 
     const tarefa =
@@ -891,15 +878,73 @@ function toggleTarefa(id){
     renderTarefas();
 }
 
+/* REMOVER TAREFA */
+
 function removerTarefa(id){
 
-    tarefas =
-    tarefas.filter(t=>t.id!==id);
+    if(confirm('Excluir tarefa?')){
 
-    saveData();
+        tarefas =
+        tarefas.filter(t=>t.id!==id);
 
-    renderTarefas();
+        saveData();
+
+        renderTarefas();
+    }
 }
+
+/* DASHBOARD */
+
+function updateDashboard(){
+
+    document.getElementById(
+        'totalServicos'
+    ).innerText = servicos.length;
+
+    const prontos =
+    servicos.filter(
+        s=>s.status==='Pronto'
+    );
+
+    const pendentes =
+    servicos.filter(
+        s=>s.status!=='Pronto'
+    );
+
+    let totalPronto = 0;
+    let totalPendente = 0;
+
+    prontos.forEach(s=>{
+
+        totalPronto +=
+        Number(s.valor || 0);
+
+    });
+
+    pendentes.forEach(s=>{
+
+        totalPendente +=
+        Number(s.valor || 0);
+
+    });
+
+    document.getElementById(
+        'valorPronto'
+    ).innerText =
+    'R$ ' + totalPronto.toFixed(2);
+
+    document.getElementById(
+        'valorPendente'
+    ).innerText =
+    'R$ ' + totalPendente.toFixed(2);
+
+    document.getElementById(
+        'totalConcluidos'
+    ).innerText =
+    prontos.length;
+}
+
+/* DASHBOARD TAREFAS */
 
 function updateTarefaDashboard(){
 
@@ -934,8 +979,11 @@ function backupData(){
 
     const blob =
     new Blob(
+
         [JSON.stringify(dados)],
+
         {type:'application/json'}
+
     );
 
     const a =
@@ -950,18 +998,18 @@ function backupData(){
     a.click();
 }
 
-document
-.getElementById('restoreFile')
+/* RESTAURAR */
+
+document.getElementById('restoreFile')
 .addEventListener('change', function(e){
 
-    const file =
-    e.target.files[0];
+    const file = e.target.files[0];
 
-    const reader =
-    new FileReader();
+    if(!file) return;
 
-    reader.onload =
-    function(event){
+    const reader = new FileReader();
+
+    reader.onload = function(event){
 
         const dados =
         JSON.parse(event.target.result);
@@ -992,11 +1040,8 @@ document
 /* INICIAR */
 
 renderClientes();
-
 renderServicos();
-
 renderTarefas();
-
 updateDashboard();
 
 </script>
@@ -1012,23 +1057,29 @@ import {
 getFirestore,
 doc,
 setDoc,
-getDoc
+onSnapshot
 }
 from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
 
-apiKey:"AIzaSyBzpZz666Vsuuxx_FvBTIITCxyHJwRx4K0",
+apiKey:
+"AIzaSyBzpZz666Vsuuxx_FvBTIITCxyHJwRx4K0",
 
-authDomain:"organizador-web-58a32.firebaseapp.com",
+authDomain:
+"organizador-web-58a32.firebaseapp.com",
 
-projectId:"organizador-web-58a32",
+projectId:
+"organizador-web-58a32",
 
-storageBucket:"organizador-web-58a32.firebasestorage.app",
+storageBucket:
+"organizador-web-58a32.firebasestorage.app",
 
-messagingSenderId:"868666016791",
+messagingSenderId:
+"868666016791",
 
-appId:"1:868666016791:web:ad99b7ca5f55fac9dd4852"
+appId:
+"1:868666016791:web:ad99b7ca5f55fac9dd4852"
 
 };
 
@@ -1038,94 +1089,80 @@ initializeApp(firebaseConfig);
 const db =
 getFirestore(app);
 
-window.salvarNuvem =
+const backupRef =
+doc(db, "backup", "dados");
+
+/* SINCRONIZAÇÃO AUTOMÁTICA */
+
+window.sincronizarNuvem =
 async function(){
 
     try{
 
-        await setDoc(
+        await setDoc(backupRef,{
 
-            doc(db,"backup","dados"),
+            servicos,
+            tarefas,
+            clientes,
 
-            {
+            atualizado:
+            new Date().toLocaleString()
 
-                servicos,
-                tarefas,
-                clientes,
+        });
 
-                data:
-                new Date().toLocaleString()
-
-            }
-
-        );
-
-        alert(
-        "Backup salvo na nuvem!"
+        console.log(
+        "Sincronizado!"
         );
 
     }catch(e){
 
         console.log(e);
-
-        alert(
-        "Erro ao salvar."
-        );
     }
 }
 
-window.restaurarNuvem =
-async function(){
+/* ATUALIZAÇÃO AUTOMÁTICA */
 
-    try{
+onSnapshot(backupRef,(docSnap)=>{
 
-        const documento =
-        await getDoc(
-            doc(db,"backup","dados")
+    if(docSnap.exists()){
+
+        const dados =
+        docSnap.data();
+
+        servicos =
+        dados.servicos || [];
+
+        tarefas =
+        dados.tarefas || [];
+
+        clientes =
+        dados.clientes || [];
+
+        localStorage.setItem(
+            'servicos',
+            JSON.stringify(servicos)
         );
 
-        if(documento.exists()){
+        localStorage.setItem(
+            'tarefas',
+            JSON.stringify(tarefas)
+        );
 
-            const dados =
-            documento.data();
+        localStorage.setItem(
+            'clientes',
+            JSON.stringify(clientes)
+        );
 
-            servicos =
-            dados.servicos || [];
+        renderClientes();
+        renderServicos();
+        renderTarefas();
+        updateDashboard();
 
-            tarefas =
-            dados.tarefas || [];
-
-            clientes =
-            dados.clientes || [];
-
-            saveData();
-
-            renderClientes();
-
-            renderServicos();
-
-            renderTarefas();
-
-            alert(
-            "Backup restaurado!"
-            );
-
-        }else{
-
-            alert(
-            "Nenhum backup encontrado."
-            );
-        }
-
-    }catch(e){
-
-        console.log(e);
-
-        alert(
-        "Erro ao restaurar."
+        console.log(
+        "Dados sincronizados!"
         );
     }
-}
+});
 
 </script>
 
