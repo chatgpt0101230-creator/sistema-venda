@@ -493,40 +493,22 @@ Organizador Premium
  
 <div class="dashboard">
 
-<div class="box"
-onclick="abrirFiltro('todos')"
-style="cursor:pointer;">
-
+<div class="box">
 <i class="fa-solid fa-box fa-2x"></i>
-
 <h2 id="totalServicos">0</h2>
-
 <p>Total Serviços</p>
-
 </div>
 
-<div class="box"
-onclick="abrirFiltro('Pendente')"
-style="cursor:pointer;">
-
+<div class="box">
 <i class="fa-solid fa-money-bill fa-2x"></i>
-
 <h2 id="valorPendente">R$ 0</h2>
-
 <p>Valores Pendentes</p>
-
 </div>
 
-<div class="box"
-onclick="abrirFiltro('Pronto')"
-style="cursor:pointer;">
-
+<div class="box">
 <i class="fa-solid fa-circle-check fa-2x"></i>
-
 <h2 id="valorPronto">R$ 0</h2>
-
 <p>Valores Concluídos</p>
-
 </div>
 
 <div class="box">
@@ -810,17 +792,6 @@ status
 
 saveData();
 
-let filtroDashboard = 'todos';
-
-function abrirFiltro(status){
-
-    filtroDashboard = status;
-
-    showTab('historico');
-
-    renderServicos();
-}
- 
 renderClientes();
 
 renderServicos();
@@ -870,13 +841,6 @@ return b.id - a.id;
 });
 
 ordenados.forEach(s=>{
-
- if(
-    filtroDashboard !== 'todos' &&
-    s.status !== filtroDashboard
-){
-    return;
-}
 
 if(
 
