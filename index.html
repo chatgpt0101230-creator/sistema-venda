@@ -467,10 +467,10 @@ JSON.parse(localStorage.getItem('clientes')) || [];
 
 function toggleMenu(){
 
-    document
-    .querySelector('.sidebar')
-    .classList
-    .toggle('hide');
+    const sidebar =
+    document.querySelector('.sidebar');
+
+    sidebar.classList.toggle('hide');
 }
 
 /* ABAS */
@@ -488,8 +488,17 @@ function showTab(id){
     .getElementById(id)
     .classList
     .add('active');
-}
 
+    /* FECHAR MENU NO CELULAR */
+
+    if(window.innerWidth <= 768){
+
+        document
+        .querySelector('.sidebar')
+        .classList
+        .add('hide');
+    }
+}
 /* SALVAR */
 
 function saveData(){
