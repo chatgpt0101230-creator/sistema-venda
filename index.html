@@ -26,12 +26,22 @@ body{
 }
 
 header{
+
     background:#111827;
+
     color:white;
+
     padding:15px;
-    text-align:center;
+
     font-size:24px;
+
     font-weight:bold;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
 }
 
 .container{
@@ -209,21 +219,23 @@ textarea{
 
 .menu-toggle{
 
-    background:#111827;
+    background:#374151;
 
     color:white;
 
     border:none;
 
-    padding:12px;
+    padding:10px 15px;
 
-    width:100%;
+    border-radius:8px;
 
-    font-size:20px;
+    font-size:22px;
 
     cursor:pointer;
 
-    display:none;
+    display:block;
+
+    z-index:2000;
 }
 
 /* RESPONSIVO */
@@ -1078,10 +1090,17 @@ async function(){
 
 function toggleMenu(){
 
-    document
-    .querySelector('.sidebar')
-    .classList
-    .toggle('hide');
+    const sidebar =
+    document.querySelector('.sidebar');
+
+    if(sidebar.classList.contains('hide')){
+
+        sidebar.classList.remove('hide');
+
+    } else {
+
+        sidebar.classList.add('hide');
+    }
 }
     
 </script>
