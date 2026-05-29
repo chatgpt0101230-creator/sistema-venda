@@ -230,7 +230,57 @@ textarea{
     display:none;
 }
 
+/* RESPONSIVO */
+
+.sidebar{
+
+    width:250px;
+
+    background:#1f2937;
+
+    color:white;
+
+    padding:20px;
+
+    transition:0.3s;
+}
+
+/* menu escondido */
+
+.sidebar.hide{
+
+    transform:translateX(-100%);
+}
+
+/* botão menu */
+
+.menu-toggle{
+
+    background:#111827;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    width:100%;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    display:none;
+}
+
+/* celular */
+
 @media(max-width:768px){
+
+    .container{
+
+        display:block;
+    }
 
     .menu-toggle{
 
@@ -241,23 +291,20 @@ textarea{
 
         position:fixed;
 
-        z-index:1000;
-
-        height:100vh;
+        top:0;
 
         left:0;
 
-        top:0;
+        height:100vh;
+
+        z-index:1000;
     }
 
-    .sidebar.hide{
+    .content{
 
-        left:-250px;
-
-        margin-left:0;
+        padding:15px;
     }
 }
-
 </style>
 
 </head>
@@ -274,7 +321,7 @@ textarea{
     
 <div class="container">
 
-<div class="sidebar">
+<div class="sidebar hide">
 
 <h2>Menu</h2>
 
