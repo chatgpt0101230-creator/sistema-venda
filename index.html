@@ -1,123 +1,201 @@
+<!-- ================================================= -->
+<!-- ORGANIZADOR PROFISSIONAL PREMIUM V2 -->
+<!-- ================================================= -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Organizador Profissional</title>
+<title>Organizador Premium</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
+:root{
+
+--bg:#f3f4f6;
+--card:#ffffff;
+--text:#111827;
+--sidebar:#111827;
+--sidebar2:#1f2937;
+--primary:#2563eb;
+--green:#16a34a;
+--red:#dc2626;
+--orange:#d97706;
+--purple:#7c3aed;
+--shadow:0 4px 15px rgba(0,0,0,0.08);
+
+}
+
+.dark{
+
+--bg:#0f172a;
+--card:#1e293b;
+--text:#f8fafc;
+--sidebar:#020617;
+--sidebar2:#111827;
+--shadow:0 4px 15px rgba(0,0,0,0.3);
+
+}
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
 }
 
 body{
-    background:#f3f4f6;
+background:var(--bg);
+color:var(--text);
+transition:0.3s;
 }
-
-/* HEADER */
 
 header{
-    background:#111827;
-    color:white;
-    padding:15px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    position:sticky;
-    top:0;
-    z-index:1000;
+
+height:70px;
+background:var(--sidebar);
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 20px;
+
+position:sticky;
+top:0;
+z-index:1000;
+
+box-shadow:var(--shadow);
+
 }
 
-header h1{
-    font-size:24px;
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:22px;
+font-weight:bold;
 }
 
-/* BOTÃO MENU */
-
-.menu-toggle{
-    background:#374151;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    border-radius:8px;
-    font-size:22px;
-    cursor:pointer;
+.top-buttons{
+display:flex;
+gap:10px;
 }
 
-/* LAYOUT */
+.top-buttons button{
+
+border:none;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+background:#374151;
+color:white;
+font-size:16px;
+
+}
 
 .container{
-    display:flex;
-    min-height:100vh;
+display:flex;
+min-height:calc(100vh - 70px);
 }
 
 /* SIDEBAR */
 
 .sidebar{
-    width:260px;
-    background:#1f2937;
-    color:white;
-    padding:20px;
-    transition:0.3s;
+
+width:250px;
+background:var(--sidebar2);
+padding:20px;
+transition:0.3s;
+
 }
 
 .sidebar.hide{
-    margin-left:-260px;
-}
-
-.sidebar h2{
-    margin-bottom:20px;
+margin-left:-250px;
 }
 
 .sidebar button{
-    width:100%;
-    padding:14px;
-    border:none;
-    background:#374151;
-    color:white;
-    margin-bottom:12px;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:16px;
+
+width:100%;
+border:none;
+padding:14px;
+margin-bottom:10px;
+
+border-radius:12px;
+background:#374151;
+color:white;
+
+cursor:pointer;
+font-size:15px;
+transition:0.2s;
+
 }
 
 .sidebar button:hover{
-    background:#4b5563;
+transform:scale(1.03);
+background:var(--primary);
 }
-
-/* CONTEÚDO */
 
 .content{
-    flex:1;
-    padding:20px;
+flex:1;
+padding:20px;
 }
 
-.tab{
-    display:none;
+/* DASHBOARD */
+
+.dashboard{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-bottom:20px;
+
 }
 
-.tab.active{
-    display:block;
+.box{
+
+background:var(--card);
+padding:20px;
+border-radius:18px;
+box-shadow:var(--shadow);
+transition:0.2s;
+
 }
 
-/* CARDS */
+.box:hover{
+transform:translateY(-3px);
+}
+
+.box h2{
+font-size:28px;
+margin-top:10px;
+}
+
+.box p{
+opacity:0.8;
+margin-top:5px;
+}
+
+/* CARD */
 
 .card{
-    background:white;
-    padding:20px;
-    border-radius:16px;
-    margin-bottom:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.08);
-}
 
-.card h2{
-    margin-bottom:15px;
+background:var(--card);
+padding:20px;
+border-radius:18px;
+box-shadow:var(--shadow);
+margin-bottom:20px;
+
 }
 
 /* INPUTS */
@@ -125,156 +203,215 @@ header h1{
 input,
 select,
 textarea{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border-radius:10px;
-    border:1px solid #d1d5db;
-    font-size:15px;
+
+width:100%;
+padding:14px;
+margin-top:10px;
+
+border-radius:12px;
+border:1px solid #cbd5e1;
+
+background:transparent;
+color:var(--text);
+
 }
 
 textarea{
-    min-height:100px;
+min-height:100px;
 }
 
-/* BOTÕES */
+/* BUTTON */
 
 .btn{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:14px;
-    border-radius:12px;
-    cursor:pointer;
-    margin-top:15px;
-    width:100%;
-    font-size:16px;
+
+width:100%;
+padding:14px;
+border:none;
+
+border-radius:12px;
+margin-top:15px;
+
+background:var(--primary);
+color:white;
+
+cursor:pointer;
+font-size:15px;
+
+transition:0.2s;
+
 }
 
 .btn:hover{
-    background:#1d4ed8;
+transform:scale(1.02);
 }
 
-/* DASHBOARD */
+/* TABS */
 
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-    margin-bottom:20px;
+.tab{
+display:none;
+animation:fade 0.3s;
 }
 
-.box{
-    padding:25px;
-    border-radius:18px;
-    color:white;
-    text-align:center;
+.tab.active{
+display:block;
 }
 
-.box h2{
-    font-size:28px;
-    margin-bottom:10px;
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(10px);
 }
 
-/* LISTAS */
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* ITEMS */
 
 .item{
-    background:white;
-    padding:18px;
-    border-radius:16px;
-    margin-bottom:15px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+
+background:var(--card);
+padding:20px;
+
+border-radius:18px;
+box-shadow:var(--shadow);
+
+margin-bottom:15px;
+
+transition:0.2s;
+
 }
 
-.item h3{
-    margin-bottom:10px;
+.item:hover{
+transform:translateY(-2px);
 }
-
-/* AÇÕES */
-
-.actions{
-    margin-top:15px;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.actions button{
-    border:none;
-    padding:10px 15px;
-    border-radius:10px;
-    color:white;
-    cursor:pointer;
-}
-
-.edit{
-    background:#2563eb;
-}
-
-.delete{
-    background:#dc2626;
-}
-
-.done{
-    background:#16a34a;
-}
-
-/* STATUS */
 
 .status{
-    padding:6px 12px;
-    border-radius:20px;
-    color:white;
-    display:inline-block;
-    margin-top:10px;
-    font-size:14px;
+
+padding:6px 12px;
+border-radius:20px;
+color:white;
+display:inline-block;
+margin-top:10px;
+
+font-size:14px;
+
 }
 
 .pendente{
-    background:#dc2626;
+background:var(--red);
 }
 
 .andamento{
-    background:#d97706;
+background:var(--orange);
 }
 
 .pronto{
-    background:#16a34a;
+background:var(--green);
 }
 
-/* MOBILE */
+.actions{
+
+margin-top:15px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+.actions button{
+
+border:none;
+padding:10px 14px;
+border-radius:10px;
+cursor:pointer;
+color:white;
+
+}
+
+.edit{
+background:var(--primary);
+}
+
+.delete{
+background:var(--red);
+}
+
+.done{
+background:var(--green);
+}
+
+/* PESQUISA */
+
+.search-box{
+margin-bottom:20px;
+}
+
+/* GRAFICOS */
+
+.chart-container{
+
+background:var(--card);
+padding:20px;
+border-radius:18px;
+box-shadow:var(--shadow);
+
+margin-bottom:20px;
+
+}
+
+/* RESPONSIVO */
 
 @media(max-width:768px){
 
-    .sidebar{
-        position:fixed;
-        top:0;
-        left:0;
-        height:100vh;
-        z-index:999;
-    }
+.sidebar{
 
-    .content{
-        padding:15px;
-    }
+position:fixed;
+height:100vh;
+z-index:2000;
 
-    .dashboard{
-        grid-template-columns:1fr;
-    }
+}
+
+.content{
+padding:15px;
+}
+
+.dashboard{
+grid-template-columns:1fr;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
 
-<button class="menu-toggle" onclick="toggleMenu()">
+<div class="logo">
+
+<i class="fa-solid fa-layer-group"></i>
+Organizador Premium
+
+</div>
+
+<div class="top-buttons">
+
+<button onclick="toggleMenu()">
 ☰
 </button>
 
-<h1>📋 Organizador Profissional</h1>
+<button onclick="toggleDarkMode()">
+🌙
+</button>
+
+</div>
 
 </header>
 
@@ -284,28 +421,38 @@ textarea{
 
 <div class="sidebar hide">
 
-<h2>Menu</h2>
-
 <button onclick="showTab('dashboard')">
-📊 Dashboard
+<i class="fa-solid fa-chart-line"></i>
+ Dashboard
 </button>
 
 <button onclick="showTab('cadastro')">
-📝 Cadastro Serviço
+<i class="fa-solid fa-plus"></i>
+ Cadastro
 </button>
 
 <button onclick="showTab('historico')">
-📦 Histórico
+<i class="fa-solid fa-clock-rotate-left"></i>
+ Histórico
 </button>
 
 <button onclick="showTab('organizacao')">
-📅 Organização Diária
+<i class="fa-solid fa-calendar"></i>
+ Organização
 </button>
 
-<hr style="margin:25px 0;">
+<hr style="margin:20px 0;opacity:0.2;">
 
 <button onclick="backupData()">
-💾 Fazer Backup
+💾 Backup
+</button>
+
+<button onclick="salvarNuvem()">
+☁ Nuvem
+</button>
+
+<button onclick="restaurarNuvem()">
+📥 Restaurar
 </button>
 
 <input type="file" id="restoreFile" hidden>
@@ -316,7 +463,7 @@ textarea{
 
 </div>
 
-<!-- CONTEÚDO -->
+<!-- CONTEUDO -->
 
 <div class="content">
 
@@ -326,26 +473,34 @@ textarea{
 
 <div class="dashboard">
 
-<div class="box" style="background:#2563eb;">
+<div class="box">
+<i class="fa-solid fa-box fa-2x"></i>
 <h2 id="totalServicos">0</h2>
 <p>Total Serviços</p>
 </div>
 
-<div class="box" style="background:#16a34a;">
-<h2 id="valorPronto">R$ 0</h2>
-<p>Valor Concluído</p>
-</div>
-
-<div class="box" style="background:#dc2626;">
+<div class="box">
+<i class="fa-solid fa-money-bill fa-2x"></i>
 <h2 id="valorPendente">R$ 0</h2>
-<p>Valor Pendente</p>
+<p>Valores Pendentes</p>
 </div>
 
-<div class="box" style="background:#7c3aed;">
-<h2 id="totalConcluidos">0</h2>
-<p>Concluídos</p>
+<div class="box">
+<i class="fa-solid fa-circle-check fa-2x"></i>
+<h2 id="valorPronto">R$ 0</h2>
+<p>Valores Concluídos</p>
 </div>
 
+<div class="box">
+<i class="fa-solid fa-list-check fa-2x"></i>
+<h2 id="totalCompromissos">0</h2>
+<p>Compromissos</p>
+</div>
+
+</div>
+
+<div class="chart-container">
+<canvas id="grafico"></canvas>
 </div>
 
 </div>
@@ -362,7 +517,7 @@ textarea{
 <option value="">Selecionar Cliente</option>
 </select>
 
-<input type="text" id="novoCliente" placeholder="Novo cliente">
+<input type="text" id="novoCliente" placeholder="Novo Cliente">
 
 <input type="text" id="telefoneCliente" placeholder="Telefone">
 
@@ -372,12 +527,15 @@ textarea{
 
 <input type="date" id="entrega">
 
-<textarea id="observacao" placeholder="Observação"></textarea>
+<textarea id="observacao"
+placeholder="Observação"></textarea>
 
 <select id="status">
-<option value="Pendente">Pendente</option>
-<option value="Em andamento">Em andamento</option>
-<option value="Pronto">Pronto</option>
+
+<option>Pendente</option>
+<option>Em andamento</option>
+<option>Pronto</option>
+
 </select>
 
 <button class="btn" onclick="addServico()">
@@ -388,9 +546,18 @@ Cadastrar Serviço
 
 </div>
 
-<!-- HISTÓRICO -->
+<!-- HISTORICO -->
 
 <div class="tab" id="historico">
+
+<div class="search-box">
+
+<input type="text"
+id="pesquisa"
+placeholder="Pesquisar serviço ou cliente..."
+onkeyup="renderServicos()">
+
+</div>
 
 <div id="listaServicos"></div>
 
@@ -400,37 +567,25 @@ Cadastrar Serviço
 
 <div class="tab" id="organizacao">
 
-<div class="dashboard">
-
-<div class="box" style="background:#2563eb;">
-<h2 id="totalCompromissos">0</h2>
-<p>Total Compromissos</p>
-</div>
-
-<div class="box" style="background:#16a34a;">
-<h2 id="totalFeitos">0</h2>
-<p>Concluídos</p>
-</div>
-
-<div class="box" style="background:#dc2626;">
-<h2 id="totalPendentes">0</h2>
-<p>Pendentes</p>
-</div>
-
-</div>
-
 <div class="card">
 
-<h2>Organização Diária</h2>
+<h2>Adicionar Compromisso</h2>
 
-<input type="text" id="tarefa" placeholder="Compromisso">
+<input type="text"
+id="tarefa"
+placeholder="Compromisso">
 
-<input type="time" id="hora">
+<input type="time"
+id="hora">
 
-<input type="date" id="dataTarefa">
+<input type="date"
+id="dataTarefa">
 
-<button class="btn" onclick="addTarefa()">
-Adicionar Compromisso
+<button class="btn"
+onclick="addTarefa()">
+
+Adicionar
+
 </button>
 
 </div>
@@ -454,595 +609,621 @@ JSON.parse(localStorage.getItem('tarefas')) || [];
 let clientes =
 JSON.parse(localStorage.getItem('clientes')) || [];
 
+/* TABS */
+
+function showTab(id){
+
+document.querySelectorAll('.tab')
+.forEach(tab=>tab.classList.remove('active'));
+
+document.getElementById(id)
+.classList.add('active');
+
+if(window.innerWidth < 768){
+
+document.querySelector('.sidebar')
+.classList.add('hide');
+
+}
+
+}
+
 /* MENU */
 
 function toggleMenu(){
 
-    document
-    .querySelector('.sidebar')
-    .classList
-    .toggle('hide');
+document.querySelector('.sidebar')
+.classList.toggle('hide');
+
 }
 
-/* ABAS */
+/* DARK MODE */
 
-function showTab(id){
+function toggleDarkMode(){
 
-    document.querySelectorAll('.tab')
-    .forEach(tab=>{
+document.body.classList.toggle('dark');
 
-        tab.classList.remove('active');
+localStorage.setItem(
+'darkMode',
+document.body.classList.contains('dark')
+);
 
-    });
-
-    document
-    .getElementById(id)
-    .classList
-    .add('active');
-
-    if(window.innerWidth <= 768){
-
-        document
-        .querySelector('.sidebar')
-        .classList
-        .add('hide');
-    }
 }
 
-/* SALVAR */
+if(localStorage.getItem('darkMode') === 'true'){
 
-async function saveData(){
+document.body.classList.add('dark');
 
-    localStorage.setItem(
-        'servicos',
-        JSON.stringify(servicos)
-    );
+}
 
-    localStorage.setItem(
-        'tarefas',
-        JSON.stringify(tarefas)
-    );
+/* SAVE */
 
-    localStorage.setItem(
-        'clientes',
-        JSON.stringify(clientes)
-    );
+function saveData(){
 
-    updateDashboard();
+localStorage.setItem(
+'servicos',
+JSON.stringify(servicos)
+);
 
-    updateTarefaDashboard();
+localStorage.setItem(
+'tarefas',
+JSON.stringify(tarefas)
+);
 
-    sincronizarNuvem();
+localStorage.setItem(
+'clientes',
+JSON.stringify(clientes)
+);
+
+updateDashboard();
+
+renderGrafico();
+
+autoSalvarNuvem();
+
 }
 
 /* CLIENTES */
 
 function renderClientes(){
 
-    const select =
-    document.getElementById('clienteSelect');
+const select =
+document.getElementById('clienteSelect');
 
-    select.innerHTML =
-    `<option value="">Selecionar Cliente</option>`;
+select.innerHTML =
+`<option value="">Selecionar Cliente</option>`;
 
-    clientes.forEach(c=>{
+clientes.forEach(c=>{
 
-        select.innerHTML += `
-        <option value="${c.nome}">
-        ${c.nome}
-        </option>
-        `;
-    });
+select.innerHTML +=
+`<option value="${c.nome}">
+${c.nome}
+</option>`;
+
+});
+
 }
 
-/* CADASTRAR SERVIÇO */
+/* ADD SERVIÇO */
 
 function addServico(){
 
-    const clienteSelect =
-    document.getElementById('clienteSelect').value;
+const clienteSelect =
+document.getElementById('clienteSelect').value;
 
-    const novoCliente =
-    document.getElementById('novoCliente').value;
+const novoCliente =
+document.getElementById('novoCliente').value;
 
-    const telefone =
-    document.getElementById('telefoneCliente').value;
+const telefone =
+document.getElementById('telefoneCliente').value;
 
-    const cliente =
-    clienteSelect || novoCliente;
+const cliente =
+clienteSelect || novoCliente;
 
-    const servico =
-    document.getElementById('servico').value;
+const servico =
+document.getElementById('servico').value;
 
-    const valor =
-    document.getElementById('valor').value;
+const valor =
+document.getElementById('valor').value;
 
-    const entrega =
-    document.getElementById('entrega').value;
+const entrega =
+document.getElementById('entrega').value;
 
-    const observacao =
-    document.getElementById('observacao').value;
+const observacao =
+document.getElementById('observacao').value;
 
-    const status =
-    document.getElementById('status').value;
+const status =
+document.getElementById('status').value;
 
-    if(!cliente || !servico){
+if(!cliente || !servico){
 
-        alert('Preencha os campos');
+alert('Preencha os campos');
+return;
 
-        return;
-    }
+}
 
-    const existe =
-    clientes.find(c=>c.nome===cliente);
+const existe =
+clientes.find(c=>c.nome===cliente);
 
-    if(!existe){
+if(!existe){
 
-        clientes.push({
+clientes.push({
 
-            nome:cliente,
-            telefone:telefone
+nome:cliente,
+telefone:telefone
 
-        });
-    }
+});
 
-    servicos.push({
+}
 
-        id:Date.now(),
+servicos.push({
 
-        cliente,
-        telefone,
-        servico,
-        valor,
-        entrega,
-        observacao,
-        status
+id:Date.now(),
 
-    });
+cliente,
+telefone,
+servico,
+valor,
+entrega,
+observacao,
+status
 
-    saveData();
+});
 
-    renderClientes();
+saveData();
 
-    renderServicos();
+renderClientes();
 
-    limparFormulario();
+renderServicos();
 
-    alert('Serviço cadastrado!');
+limparCadastro();
+
 }
 
 /* LIMPAR */
 
-function limparFormulario(){
+function limparCadastro(){
 
-    document.getElementById('clienteSelect').value='';
-    document.getElementById('novoCliente').value='';
-    document.getElementById('telefoneCliente').value='';
-    document.getElementById('servico').value='';
-    document.getElementById('valor').value='';
-    document.getElementById('entrega').value='';
-    document.getElementById('observacao').value='';
-    document.getElementById('status').value='Pendente';
+document.getElementById('novoCliente').value='';
+document.getElementById('telefoneCliente').value='';
+document.getElementById('servico').value='';
+document.getElementById('valor').value='';
+document.getElementById('entrega').value='';
+document.getElementById('observacao').value='';
+
 }
 
-/* RENDER SERVIÇOS */
+/* HISTORICO */
 
 function renderServicos(){
 
-    const lista =
-    document.getElementById('listaServicos');
+const lista =
+document.getElementById('listaServicos');
 
-    lista.innerHTML='';
+const pesquisa =
+document.getElementById('pesquisa').value.toLowerCase();
 
-    servicos.sort((a,b)=>{
+lista.innerHTML='';
 
-        if(a.status === 'Pronto' &&
-           b.status !== 'Pronto') return 1;
+const ordenados = [...servicos]
+.sort((a,b)=>{
 
-        if(a.status !== 'Pronto' &&
-           b.status === 'Pronto') return -1;
+if(a.status === 'Pronto' && b.status !== 'Pronto'){
+return 1;
+}
 
-        return b.id - a.id;
-    });
+if(a.status !== 'Pronto' && b.status === 'Pronto'){
+return -1;
+}
 
-    servicos.forEach(s=>{
+return b.id - a.id;
 
-        let classe='pendente';
+});
 
-        if(s.status==='Em andamento'){
-            classe='andamento';
-        }
+ordenados.forEach(s=>{
 
-        if(s.status==='Pronto'){
-            classe='pronto';
-        }
+if(
 
-        lista.innerHTML += `
+!s.cliente.toLowerCase().includes(pesquisa) &&
+!s.servico.toLowerCase().includes(pesquisa)
 
-        <div class="item">
+){
+return;
+}
 
-        <h3>${s.cliente}</h3>
+let classe='pendente';
 
-        <p><strong>Telefone:</strong>
-        ${s.telefone || '-'}</p>
+if(s.status==='Em andamento'){
+classe='andamento';
+}
 
-        <p><strong>Serviço:</strong>
-        ${s.servico}</p>
+if(s.status==='Pronto'){
+classe='pronto';
+}
 
-        <p><strong>Valor:</strong>
-        R$ ${s.valor}</p>
+lista.innerHTML += `
 
-        <p><strong>Entrega:</strong>
-        ${s.entrega}</p>
+<div class="item">
 
-        <p><strong>Observação:</strong>
-        ${s.observacao || '-'}</p>
+<h3>${s.cliente}</h3>
 
-        <span class="status ${classe}">
-        ${s.status}
-        </span>
+<p><b>Serviço:</b> ${s.servico}</p>
+<p><b>Valor:</b> R$ ${s.valor}</p>
+<p><b>Entrega:</b> ${s.entrega}</p>
+<p><b>Observação:</b> ${s.observacao || '-'}</p>
 
-        <div class="actions">
+<span class="status ${classe}">
+${s.status}
+</span>
 
-        <button class="edit"
-        onclick="editarServico(${s.id})">
-        Editar
-        </button>
+<div class="actions">
 
-        <button class="done"
-        onclick="alterarStatus(${s.id})">
-        Status
-        </button>
+<button class="edit"
+onclick="editarServico(${s.id})">
 
-        <button class="delete"
-        onclick="removerServico(${s.id})">
-        Excluir
-        </button>
+Editar
 
-        </div>
+</button>
 
-        </div>
-        `;
-    });
+<button class="done"
+onclick="alterarStatus(${s.id})">
+
+Status
+
+</button>
+
+<button class="delete"
+onclick="removerServico(${s.id})">
+
+Excluir
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
 }
 
 /* EDITAR */
 
 function editarServico(id){
 
-    const s =
-    servicos.find(x=>x.id===id);
+const s =
+servicos.find(x=>x.id===id);
 
-    const novoServico =
-    prompt(
-    'Editar serviço:',
-    s.servico
-    );
+const novoServico =
+prompt('Editar serviço:', s.servico);
 
-    if(novoServico !== null){
+if(novoServico !== null){
 
-        s.servico = novoServico;
+s.servico = novoServico;
 
-        saveData();
+saveData();
+renderServicos();
 
-        renderServicos();
-    }
+}
+
 }
 
 /* STATUS */
 
 function alterarStatus(id){
 
-    const novo =
-    prompt(
-`1 = Pendente
-2 = Em andamento
-3 = Pronto`
-    );
+const servico =
+servicos.find(s=>s.id===id);
 
-    const servico =
-    servicos.find(s=>s.id===id);
+if(servico.status === 'Pendente'){
 
-    if(novo==1){
-        servico.status='Pendente';
-    }
+servico.status='Em andamento';
 
-    if(novo==2){
-        servico.status='Em andamento';
-    }
+} else if(servico.status === 'Em andamento'){
 
-    if(novo==3){
-        servico.status='Pronto';
-    }
+servico.status='Pronto';
 
-    saveData();
+} else {
 
-    renderServicos();
+servico.status='Pendente';
+
 }
 
-/* REMOVER */
+saveData();
+
+renderServicos();
+
+}
+
+/* REMOVE */
 
 function removerServico(id){
 
-    if(confirm('Excluir serviço?')){
+if(confirm('Excluir serviço?')){
 
-        servicos =
-        servicos.filter(s=>s.id!==id);
+servicos =
+servicos.filter(s=>s.id!==id);
 
-        saveData();
+saveData();
 
-        renderServicos();
-    }
+renderServicos();
+
+}
+
 }
 
 /* TAREFAS */
 
 function addTarefa(){
 
-    const tarefa =
-    document.getElementById('tarefa').value;
+const tarefa =
+document.getElementById('tarefa').value;
 
-    const hora =
-    document.getElementById('hora').value;
+const hora =
+document.getElementById('hora').value;
 
-    const data =
-    document.getElementById('dataTarefa').value;
+const data =
+document.getElementById('dataTarefa').value;
 
-    if(!tarefa){
+if(!tarefa){
 
-        alert('Digite a tarefa');
+alert('Digite a tarefa');
+return;
 
-        return;
-    }
+}
 
-    tarefas.push({
+tarefas.push({
 
-        id:Date.now(),
+id:Date.now(),
+tarefa,
+hora,
+data,
+feito:false
 
-        tarefa,
-        hora,
-        data,
+});
 
-        feito:false
+saveData();
 
-    });
+renderTarefas();
 
-    saveData();
+document.getElementById('tarefa').value='';
+document.getElementById('hora').value='';
+document.getElementById('dataTarefa').value='';
 
-    renderTarefas();
-
-    document.getElementById('tarefa').value='';
-    document.getElementById('hora').value='';
-    document.getElementById('dataTarefa').value='';
 }
 
 /* RENDER TAREFAS */
 
 function renderTarefas(){
 
-    const lista =
-    document.getElementById('listaTarefas');
+const lista =
+document.getElementById('listaTarefas');
 
-    lista.innerHTML='';
+lista.innerHTML='';
 
-    tarefas.forEach(t=>{
+tarefas.forEach(t=>{
 
-        lista.innerHTML += `
+lista.innerHTML += `
 
-        <div class="item">
+<div class="item">
 
-        <h3>${t.tarefa}</h3>
+<h3>${t.tarefa}</h3>
 
-        <p><strong>Hora:</strong>
-        ${t.hora}</p>
+<p>${t.data} - ${t.hora}</p>
 
-        <p><strong>Data:</strong>
-        ${t.data}</p>
+<p>
+${t.feito ? '✅ Feito' : '❌ Pendente'}
+</p>
 
-        <p>
-        ${t.feito ? '✅ Feito' : '❌ Pendente'}
-        </p>
+<div class="actions">
 
-        <div class="actions">
+<button class="done"
+onclick="toggleTarefa(${t.id})">
 
-        <button class="done"
-        onclick="toggleTarefa(${t.id})">
-        Marcar
-        </button>
+Marcar
 
-        <button class="delete"
-        onclick="removerTarefa(${t.id})">
-        Excluir
-        </button>
+</button>
 
-        </div>
+<button class="delete"
+onclick="removerTarefa(${t.id})">
 
-        </div>
-        `;
-    });
+Excluir
 
-    updateTarefaDashboard();
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
 }
 
-/* TOGGLE TAREFA */
+/* TOGGLE */
 
 function toggleTarefa(id){
 
-    const tarefa =
-    tarefas.find(t=>t.id===id);
+const tarefa =
+tarefas.find(t=>t.id===id);
 
-    tarefa.feito = !tarefa.feito;
+tarefa.feito = !tarefa.feito;
 
-    saveData();
+saveData();
 
-    renderTarefas();
+renderTarefas();
+
 }
 
-/* REMOVER TAREFA */
+/* REMOVE TAREFA */
 
 function removerTarefa(id){
 
-    if(confirm('Excluir tarefa?')){
+tarefas =
+tarefas.filter(t=>t.id!==id);
 
-        tarefas =
-        tarefas.filter(t=>t.id!==id);
+saveData();
 
-        saveData();
+renderTarefas();
 
-        renderTarefas();
-    }
 }
 
 /* DASHBOARD */
 
 function updateDashboard(){
 
-    document.getElementById(
-        'totalServicos'
-    ).innerText = servicos.length;
+document.getElementById('totalServicos')
+.innerText = servicos.length;
 
-    const prontos =
-    servicos.filter(
-        s=>s.status==='Pronto'
-    );
+document.getElementById('totalCompromissos')
+.innerText = tarefas.length;
 
-    const pendentes =
-    servicos.filter(
-        s=>s.status!=='Pronto'
-    );
+let pronto = 0;
+let pendente = 0;
 
-    let totalPronto = 0;
-    let totalPendente = 0;
+servicos.forEach(s=>{
 
-    prontos.forEach(s=>{
+if(s.status === 'Pronto'){
 
-        totalPronto +=
-        Number(s.valor || 0);
+pronto += Number(s.valor || 0);
 
-    });
+} else {
 
-    pendentes.forEach(s=>{
+pendente += Number(s.valor || 0);
 
-        totalPendente +=
-        Number(s.valor || 0);
-
-    });
-
-    document.getElementById(
-        'valorPronto'
-    ).innerText =
-    'R$ ' + totalPronto.toFixed(2);
-
-    document.getElementById(
-        'valorPendente'
-    ).innerText =
-    'R$ ' + totalPendente.toFixed(2);
-
-    document.getElementById(
-        'totalConcluidos'
-    ).innerText =
-    prontos.length;
 }
 
-/* DASHBOARD TAREFAS */
+});
 
-function updateTarefaDashboard(){
+document.getElementById('valorPronto')
+.innerText = 'R$ ' + pronto.toFixed(2);
 
-    document.getElementById(
-        'totalCompromissos'
-    ).innerText = tarefas.length;
+document.getElementById('valorPendente')
+.innerText = 'R$ ' + pendente.toFixed(2);
 
-    const feitos =
-    tarefas.filter(t=>t.feito).length;
+}
 
-    document.getElementById(
-        'totalFeitos'
-    ).innerText = feitos;
+/* GRAFICO */
 
-    document.getElementById(
-        'totalPendentes'
-    ).innerText =
-    tarefas.length - feitos;
+let chart;
+
+function renderGrafico(){
+
+const ctx =
+document.getElementById('grafico');
+
+const pendentes =
+servicos.filter(s=>s.status==='Pendente').length;
+
+const andamento =
+servicos.filter(s=>s.status==='Em andamento').length;
+
+const prontos =
+servicos.filter(s=>s.status==='Pronto').length;
+
+if(chart){
+chart.destroy();
+}
+
+chart = new Chart(ctx, {
+
+type:'doughnut',
+
+data:{
+
+labels:[
+'Pendentes',
+'Andamento',
+'Prontos'
+],
+
+datasets:[{
+
+data:[
+pendentes,
+andamento,
+prontos
+]
+
+}]
+
+}
+
+});
+
 }
 
 /* BACKUP */
 
 function backupData(){
 
-    const dados = {
+const dados = {
 
-        servicos,
-        tarefas,
-        clientes
+servicos,
+tarefas,
+clientes
 
-    };
+};
 
-    const blob =
-    new Blob(
+const blob =
+new Blob(
+[JSON.stringify(dados)],
+{type:'application/json'}
+);
 
-        [JSON.stringify(dados)],
+const a =
+document.createElement('a');
 
-        {type:'application/json'}
+a.href =
+URL.createObjectURL(blob);
 
-    );
+a.download =
+'backup-organizador.json';
 
-    const a =
-    document.createElement('a');
+a.click();
 
-    a.href =
-    URL.createObjectURL(blob);
-
-    a.download =
-    'backup-organizador.json';
-
-    a.click();
 }
 
-/* RESTAURAR */
+/* RESTORE */
 
 document.getElementById('restoreFile')
 .addEventListener('change', function(e){
 
-    const file = e.target.files[0];
+const file = e.target.files[0];
 
-    if(!file) return;
+const reader = new FileReader();
 
-    const reader = new FileReader();
+reader.onload = function(event){
 
-    reader.onload = function(event){
+const dados =
+JSON.parse(event.target.result);
 
-        const dados =
-        JSON.parse(event.target.result);
+servicos = dados.servicos || [];
+tarefas = dados.tarefas || [];
+clientes = dados.clientes || [];
 
-        servicos =
-        dados.servicos || [];
+saveData();
 
-        tarefas =
-        dados.tarefas || [];
+renderClientes();
+renderServicos();
+renderTarefas();
 
-        clientes =
-        dados.clientes || [];
+alert('Backup restaurado!');
 
-        saveData();
+};
 
-        renderClientes();
+reader.readAsText(file);
 
-        renderServicos();
-
-        renderTarefas();
-
-        alert('Backup restaurado!');
-    };
-
-    reader.readAsText(file);
 });
-
-/* INICIAR */
 
 renderClientes();
 renderServicos();
 renderTarefas();
 updateDashboard();
+renderGrafico();
 
 </script>
 
@@ -1054,11 +1235,14 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 
 import {
+
 getFirestore,
 doc,
 setDoc,
-onSnapshot
+getDoc
+
 }
+
 from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -1089,80 +1273,81 @@ initializeApp(firebaseConfig);
 const db =
 getFirestore(app);
 
-const backupRef =
-doc(db, "backup", "dados");
+/* AUTO SAVE */
 
-/* SINCRONIZAÇÃO AUTOMÁTICA */
-
-window.sincronizarNuvem =
+window.autoSalvarNuvem =
 async function(){
 
-    try{
+await setDoc(
 
-        await setDoc(backupRef,{
+doc(db, "backup", "dados"),
 
-            servicos,
-            tarefas,
-            clientes,
+{
 
-            atualizado:
-            new Date().toLocaleString()
+servicos,
+tarefas,
+clientes,
+data:new Date().toLocaleString()
 
-        });
-
-        console.log(
-        "Sincronizado!"
-        );
-
-    }catch(e){
-
-        console.log(e);
-    }
 }
 
-/* ATUALIZAÇÃO AUTOMÁTICA */
+);
 
-onSnapshot(backupRef,(docSnap)=>{
+}
 
-    if(docSnap.exists()){
+/* RESTAURAR AUTOMATICO */
 
-        const dados =
-        docSnap.data();
+async function carregarAutomatico(){
 
-        servicos =
-        dados.servicos || [];
+const documento =
+await getDoc(
+doc(db, "backup", "dados")
+);
 
-        tarefas =
-        dados.tarefas || [];
+if(documento.exists()){
 
-        clientes =
-        dados.clientes || [];
+const dados =
+documento.data();
 
-        localStorage.setItem(
-            'servicos',
-            JSON.stringify(servicos)
-        );
+servicos =
+dados.servicos || [];
 
-        localStorage.setItem(
-            'tarefas',
-            JSON.stringify(tarefas)
-        );
+tarefas =
+dados.tarefas || [];
 
-        localStorage.setItem(
-            'clientes',
-            JSON.stringify(clientes)
-        );
+clientes =
+dados.clientes || [];
 
-        renderClientes();
-        renderServicos();
-        renderTarefas();
-        updateDashboard();
+saveData();
 
-        console.log(
-        "Dados sincronizados!"
-        );
-    }
-});
+renderClientes();
+renderServicos();
+renderTarefas();
+renderGrafico();
+
+}
+
+}
+
+window.salvarNuvem =
+async function(){
+
+await autoSalvarNuvem();
+
+alert('Salvo na nuvem!');
+
+}
+
+window.restaurarNuvem =
+async function(){
+
+await carregarAutomatico();
+
+alert('Restaurado!');
+
+}
+
+carregarAutomatico();
 
 </script>
 
