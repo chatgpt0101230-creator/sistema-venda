@@ -1,5 +1,5 @@
 <!-- ================================================= -->
-<!-- ORGANIZADOR PROFISSIONAL PREMIUM V2 -->
+<!-- ORGANIZADOR PROFISSIONAL PREMIUM V2 - COM MODAIS -->
 <!-- ================================================= -->
 
 <!DOCTYPE html>
@@ -169,11 +169,14 @@ padding:20px;
 border-radius:18px;
 box-shadow:var(--shadow);
 transition:0.2s;
+cursor:pointer;
 
 }
 
 .box:hover{
 transform:translateY(-3px);
+background:var(--primary);
+color:white;
 }
 
 .box h2{
@@ -364,6 +367,89 @@ margin-bottom:20px;
 
 }
 
+/* MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    animation: fade 0.2s;
+}
+
+.modal-content {
+    background-color: var(--card);
+    margin: 5% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: fade 0.3s;
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary);
+    color: white;
+    border-radius: 24px 24px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.close-modal {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+}
+
+.close-modal:hover {
+    opacity: 0.7;
+}
+
+.modal-body {
+    padding: 24px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal-item {
+    background: var(--bg);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--primary);
+}
+
+.modal-item h4 {
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.modal-item p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.empty-modal {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
 /* RESPONSIVO */
 
 @media(max-width:768px){
@@ -382,6 +468,11 @@ padding:15px;
 
 .dashboard{
 grid-template-columns:1fr;
+}
+
+.modal-content {
+    width: 95%;
+    margin: 10% auto;
 }
 
 }
@@ -493,25 +584,25 @@ Organizador Premium
  
 <div class="dashboard">
 
-<div class="box">
+<div class="box" onclick="abrirModalServicos('total')">
 <i class="fa-solid fa-box fa-2x"></i>
 <h2 id="totalServicos">0</h2>
 <p>Total Serviços</p>
 </div>
 
-<div class="box">
+<div class="box" onclick="abrirModalServicos('pendente')">
 <i class="fa-solid fa-money-bill fa-2x"></i>
 <h2 id="valorPendente">R$ 0</h2>
 <p>Valores Pendentes</p>
 </div>
 
-<div class="box">
+<div class="box" onclick="abrirModalServicos('pronto')">
 <i class="fa-solid fa-circle-check fa-2x"></i>
 <h2 id="valorPronto">R$ 0</h2>
 <p>Valores Concluídos</p>
 </div>
 
-<div class="box">
+<div class="box" onclick="abrirModalTarefas()">
 <i class="fa-solid fa-list-check fa-2x"></i>
 <h2 id="totalCompromissos">0</h2>
 <p>Compromissos</p>
@@ -616,6 +707,32 @@ Adicionar
 
 </div>
 
+</div>
+
+<!-- MODAL PARA SERVIÇOS -->
+<div id="modalServicos" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Serviços</h2>
+            <button class="close-modal" onclick="fecharModal('modalServicos')">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBodyServicos">
+            <!-- Conteúdo dinâmico -->
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA TAREFAS -->
+<div id="modalTarefas" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Lista de Compromissos</h2>
+            <button class="close-modal" onclick="fecharModal('modalTarefas')">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBodyTarefas">
+            <!-- Conteúdo dinâmico -->
+        </div>
+    </div>
 </div>
 
 <script>
@@ -783,7 +900,7 @@ id:Date.now(),
 cliente,
 telefone,
 servico,
-valor,
+valor: Number(valor),
 entrega,
 observacao,
 status
@@ -1091,6 +1208,153 @@ renderTarefas();
 
 }
 
+/* FUNÇÃO AUXILIAR PARA FILTRAR SERVIÇOS POR PERÍODO */
+
+function filtrarServicosPorPeriodo(lista) {
+    const periodo = document.getElementById('filtroPeriodo')?.value || 'todos';
+    const hoje = new Date();
+    
+    if(periodo === 'hoje'){
+        return lista.filter(s => {
+            if(!s.entrega) return false;
+            return s.entrega === hoje.toISOString().split('T')[0];
+        });
+    }
+    
+    if(periodo === 'semana'){
+        const inicioSemana = new Date(hoje);
+        inicioSemana.setDate(hoje.getDate() - hoje.getDay());
+        const fimSemana = new Date(inicioSemana);
+        fimSemana.setDate(inicioSemana.getDate() + 6);
+        
+        return lista.filter(s => {
+            if(!s.entrega) return false;
+            const data = new Date(s.entrega);
+            return data >= inicioSemana && data <= fimSemana;
+        });
+    }
+    
+    if(periodo === 'mes'){
+        return lista.filter(s => {
+            if(!s.entrega) return false;
+            const data = new Date(s.entrega);
+            return data.getMonth() === hoje.getMonth() && data.getFullYear() === hoje.getFullYear();
+        });
+    }
+    
+    if(periodo === 'ano'){
+        return lista.filter(s => {
+            if(!s.entrega) return false;
+            const data = new Date(s.entrega);
+            return data.getFullYear() === hoje.getFullYear();
+        });
+    }
+    
+    return lista;
+}
+
+/* MODAL PARA SERVIÇOS */
+
+function abrirModalServicos(tipo) {
+    let listaFiltrada = filtrarServicosPorPeriodo([...servicos]);
+    let titulo = '';
+    let servicosParaExibir = [];
+    
+    switch(tipo) {
+        case 'total':
+            titulo = `📦 Todos os Serviços (${listaFiltrada.length})`;
+            servicosParaExibir = listaFiltrada;
+            break;
+        case 'pendente':
+            servicosParaExibir = listaFiltrada.filter(s => s.status !== 'Pronto');
+            titulo = `💰 Serviços Pendentes (${servicosParaExibir.length}) - Total: R$ ${servicosParaExibir.reduce((acc, s) => acc + (s.valor || 0), 0).toFixed(2)}`;
+            break;
+        case 'pronto':
+            servicosParaExibir = listaFiltrada.filter(s => s.status === 'Pronto');
+            titulo = `✅ Serviços Concluídos (${servicosParaExibir.length}) - Total: R$ ${servicosParaExibir.reduce((acc, s) => acc + (s.valor || 0), 0).toFixed(2)}`;
+            break;
+        default:
+            servicosParaExibir = listaFiltrada;
+            titulo = `Serviços`;
+    }
+    
+    const modalBody = document.getElementById('modalBodyServicos');
+    document.getElementById('modalTitle').innerHTML = titulo;
+    
+    if(servicosParaExibir.length === 0) {
+        modalBody.innerHTML = '<div class="empty-modal">Nenhum serviço encontrado para este período 📭</div>';
+    } else {
+        modalBody.innerHTML = '';
+        servicosParaExibir.forEach(s => {
+            let classeStatus = '';
+            if(s.status === 'Pendente') classeStatus = 'pendente';
+            else if(s.status === 'Em andamento') classeStatus = 'andamento';
+            else classeStatus = 'pronto';
+            
+            modalBody.innerHTML += `
+                <div class="modal-item">
+                    <h4>👤 ${s.cliente}</h4>
+                    <p><strong>Serviço:</strong> ${s.servico}</p>
+                    <p><strong>Valor:</strong> R$ ${s.valor || 0}</p>
+                    <p><strong>Entrega:</strong> ${s.entrega || 'Não definida'}</p>
+                    <p><strong>Observação:</strong> ${s.observacao || '-'}</p>
+                    <span class="status ${classeStatus}" style="margin-top:8px; display:inline-block;">${s.status}</span>
+                </div>
+            `;
+        });
+    }
+    
+    document.getElementById('modalServicos').style.display = 'block';
+}
+
+/* MODAL PARA TAREFAS */
+
+function abrirModalTarefas() {
+    const modalBody = document.getElementById('modalBodyTarefas');
+    
+    if(tarefas.length === 0) {
+        modalBody.innerHTML = '<div class="empty-modal">Nenhum compromisso agendado 📭</div>';
+    } else {
+        modalBody.innerHTML = '';
+        const tarefasOrdenadas = [...tarefas].sort((a,b) => {
+            if(a.data === b.data) return (a.hora || '').localeCompare(b.hora || '');
+            return (a.data || '').localeCompare(b.data || '');
+        });
+        
+        tarefasOrdenadas.forEach(t => {
+            modalBody.innerHTML += `
+                <div class="modal-item">
+                    <h4>${t.tarefa}</h4>
+                    <p><strong>Data:</strong> ${t.data || 'Não definida'}</p>
+                    <p><strong>Hora:</strong> ${t.hora || 'Não definida'}</p>
+                    <p><strong>Status:</strong> ${t.feito ? '✅ Concluído' : '❌ Pendente'}</p>
+                </div>
+            `;
+        });
+    }
+    
+    document.getElementById('modalTarefas').style.display = 'block';
+}
+
+/* FECHAR MODAL */
+
+function fecharModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+/* FECHAR MODAL CLICANDO FORA */
+
+window.onclick = function(event) {
+    const modalServicos = document.getElementById('modalServicos');
+    const modalTarefas = document.getElementById('modalTarefas');
+    if (event.target === modalServicos) {
+        modalServicos.style.display = 'none';
+    }
+    if (event.target === modalTarefas) {
+        modalTarefas.style.display = 'none';
+    }
+}
+
 /* DASHBOARD */
 
 function updateDashboard(){
@@ -1100,85 +1364,7 @@ document.getElementById('filtroPeriodo')
 ? document.getElementById('filtroPeriodo').value
 : 'todos';
 
-let lista = [...servicos];
-
-const hoje = new Date();
-
- if(periodo === 'hoje'){
-
-lista = lista.filter(s=>{
-
-if(!s.entrega) return false;
-
-return s.entrega ===
-hoje.toISOString().split('T')[0];
-
-});
-
-}
-
- if(periodo === 'semana'){
-
-const inicioSemana =
-new Date(hoje);
-
-inicioSemana.setDate(
-hoje.getDate() - hoje.getDay()
-);
-
-const fimSemana =
-new Date(inicioSemana);
-
-fimSemana.setDate(
-inicioSemana.getDate() + 6
-);
-
-lista = lista.filter(s=>{
-
-if(!s.entrega) return false;
-
-const data =
-new Date(s.entrega);
-
-return data >= inicioSemana &&
-data <= fimSemana;
-
-});
-
-}
-
- if(periodo === 'mes'){
-
-lista = lista.filter(s=>{
-
-if(!s.entrega) return false;
-
-const data =
-new Date(s.entrega);
-
-return data.getMonth() === hoje.getMonth()
-&&
-data.getFullYear() === hoje.getFullYear();
-
-});
-
-}
-
- if(periodo === 'ano'){
-
-lista = lista.filter(s=>{
-
-if(!s.entrega) return false;
-
-const data =
-new Date(s.entrega);
-
-return data.getFullYear() ===
-hoje.getFullYear();
-
-});
-
-}
+let lista = filtrarServicosPorPeriodo([...servicos]);
  
 document.getElementById('totalServicos')
 .innerText = lista.length;
@@ -1324,6 +1510,12 @@ function renderGrafico(){
                     pendentes,
                     andamento,
                     prontos
+                ],
+
+                backgroundColor: [
+                    '#dc2626',
+                    '#d97706',
+                    '#16a34a'
                 ]
 
             }]
