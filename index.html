@@ -1,3 +1,7 @@
+<!-- ================================================= -->
+<!-- ORGANIZADOR PROFISSIONAL PREMIUM V2 -->
+<!-- ================================================= -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -8,12 +12,381 @@
 
 <title>Organizador Premium</title>
 
-<link rel="stylesheet" href="style.css">
-
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+:root{
+
+--bg:#f3f4f6;
+--card:#ffffff;
+--text:#111827;
+--sidebar:#111827;
+--sidebar2:#1f2937;
+--primary:#2563eb;
+--green:#16a34a;
+--red:#dc2626;
+--orange:#d97706;
+--purple:#7c3aed;
+--shadow:0 4px 15px rgba(0,0,0,0.08);
+
+}
+
+.dark{
+
+--bg:#0f172a;
+--card:#1e293b;
+--text:#f8fafc;
+--sidebar:#020617;
+--sidebar2:#111827;
+--shadow:0 4px 15px rgba(0,0,0,0.3);
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+transition:0.3s;
+}
+
+header{
+
+height:70px;
+background:var(--sidebar);
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 20px;
+
+position:sticky;
+top:0;
+z-index:1000;
+
+box-shadow:var(--shadow);
+
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:22px;
+font-weight:bold;
+}
+
+.top-buttons{
+display:flex;
+gap:10px;
+}
+
+.top-buttons button{
+
+border:none;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+background:#374151;
+color:white;
+font-size:16px;
+
+}
+
+.container{
+display:flex;
+min-height:calc(100vh - 70px);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+width:250px;
+background:var(--sidebar2);
+padding:20px;
+transition:0.3s;
+
+}
+
+.sidebar.hide{
+margin-left:-250px;
+}
+
+.sidebar button{
+
+width:100%;
+border:none;
+padding:14px;
+margin-bottom:10px;
+
+border-radius:12px;
+background:#374151;
+color:white;
+
+cursor:pointer;
+font-size:15px;
+transition:0.2s;
+
+}
+
+.sidebar button:hover{
+transform:scale(1.03);
+background:var(--primary);
+}
+
+.content{
+flex:1;
+padding:20px;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-bottom:20px;
+
+}
+
+.box{
+
+background:var(--card);
+padding:20px;
+border-radius:18px;
+box-shadow:var(--shadow);
+transition:0.2s;
+
+}
+
+.box:hover{
+transform:translateY(-3px);
+}
+
+.box h2{
+font-size:28px;
+margin-top:10px;
+}
+
+.box p{
+opacity:0.8;
+margin-top:5px;
+}
+
+/* CARD */
+
+.card{
+
+background:var(--card);
+padding:20px;
+border-radius:18px;
+box-shadow:var(--shadow);
+margin-bottom:20px;
+
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea{
+
+width:100%;
+padding:14px;
+margin-top:10px;
+
+border-radius:12px;
+border:1px solid #cbd5e1;
+
+background:transparent;
+color:var(--text);
+
+}
+
+textarea{
+min-height:100px;
+}
+
+/* BUTTON */
+
+.btn{
+
+width:100%;
+padding:14px;
+border:none;
+
+border-radius:12px;
+margin-top:15px;
+
+background:var(--primary);
+color:white;
+
+cursor:pointer;
+font-size:15px;
+
+transition:0.2s;
+
+}
+
+.btn:hover{
+transform:scale(1.02);
+}
+
+/* TABS */
+
+.tab{
+display:none;
+animation:fade 0.3s;
+}
+
+.tab.active{
+display:block;
+}
+
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* ITEMS */
+
+.item{
+
+background:var(--card);
+padding:20px;
+
+border-radius:18px;
+box-shadow:var(--shadow);
+
+margin-bottom:15px;
+
+transition:0.2s;
+
+}
+
+.item:hover{
+transform:translateY(-2px);
+}
+
+.status{
+
+padding:6px 12px;
+border-radius:20px;
+color:white;
+display:inline-block;
+margin-top:10px;
+
+font-size:14px;
+
+}
+
+.pendente{
+background:var(--red);
+}
+
+.andamento{
+background:var(--orange);
+}
+
+.pronto{
+background:var(--green);
+}
+
+.actions{
+
+margin-top:15px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+.actions button{
+
+border:none;
+padding:10px 14px;
+border-radius:10px;
+cursor:pointer;
+color:white;
+
+}
+
+.edit{
+background:var(--primary);
+}
+
+.delete{
+background:var(--red);
+}
+
+.done{
+background:var(--green);
+}
+
+/* PESQUISA */
+
+.search-box{
+margin-bottom:20px;
+}
+
+/* GRAFICOS */
+
+.chart-container{
+
+background:var(--card);
+padding:20px;
+border-radius:18px;
+box-shadow:var(--shadow);
+
+margin-bottom:20px;
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+.sidebar{
+
+position:fixed;
+height:100vh;
+z-index:2000;
+
+}
+
+.content{
+padding:15px;
+}
+
+.dashboard{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
 
 </head>
 
@@ -22,8 +395,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <header>
 
 <div class="logo">
+
 <i class="fa-solid fa-layer-group"></i>
 Organizador Premium
+
 </div>
 
 <div class="top-buttons">
@@ -42,26 +417,28 @@ Organizador Premium
 
 <div class="container">
 
+<!-- MENU -->
+
 <div class="sidebar hide">
 
 <button onclick="showTab('dashboard')">
 <i class="fa-solid fa-chart-line"></i>
-Dashboard
+ Dashboard
 </button>
 
 <button onclick="showTab('cadastro')">
 <i class="fa-solid fa-plus"></i>
-Cadastro
+ Cadastro
 </button>
 
 <button onclick="showTab('historico')">
 <i class="fa-solid fa-clock-rotate-left"></i>
-Histórico
+ Histórico
 </button>
 
 <button onclick="showTab('organizacao')">
 <i class="fa-solid fa-calendar"></i>
-Organização
+ Organização
 </button>
 
 <hr style="margin:20px 0;opacity:0.2;">
@@ -86,7 +463,10 @@ Organização
 
 </div>
 
+<!-- CONTEUDO -->
+
 <div class="content">
+
 <!-- DASHBOARD -->
 
 <div class="tab active" id="dashboard">
@@ -95,18 +475,22 @@ Organização
 
 <h3>📅 Filtro de Período</h3>
 
-<select id="filtroPeriodo" onchange="updateDashboard(); renderGrafico();">
+<select id="filtroPeriodo" onchange="updateDashboard()">
 
 <option value="todos">Todos os períodos</option>
+
 <option value="hoje">Hoje</option>
+
 <option value="semana">Esta Semana</option>
+
 <option value="mes">Este Mês</option>
+
 <option value="ano">Este Ano</option>
 
 </select>
 
 </div>
-
+ 
 <div class="dashboard">
 
 <div class="box">
@@ -153,32 +537,17 @@ Organização
 <option value="">Selecionar Cliente</option>
 </select>
 
-<input
-type="text"
-id="novoCliente"
-placeholder="Novo Cliente">
+<input type="text" id="novoCliente" placeholder="Novo Cliente">
 
-<input
-type="text"
-id="telefoneCliente"
-placeholder="Telefone">
+<input type="text" id="telefoneCliente" placeholder="Telefone">
 
-<input
-type="text"
-id="servico"
-placeholder="Serviço">
+<input type="text" id="servico" placeholder="Serviço">
 
-<input
-type="number"
-id="valor"
-placeholder="Valor">
+<input type="number" id="valor" placeholder="Valor">
 
-<input
-type="date"
-id="entrega">
+<input type="date" id="entrega">
 
-<textarea
-id="observacao"
+<textarea id="observacao"
 placeholder="Observação"></textarea>
 
 <select id="status">
@@ -189,25 +558,21 @@ placeholder="Observação"></textarea>
 
 </select>
 
-<button
-class="btn"
-onclick="addServico()">
-
+<button class="btn" onclick="addServico()">
 Cadastrar Serviço
-
 </button>
 
 </div>
 
 </div>
-<!-- HISTÓRICO -->
+
+<!-- HISTORICO -->
 
 <div class="tab" id="historico">
 
 <div class="search-box">
 
-<input
-type="text"
+<input type="text"
 id="pesquisa"
 placeholder="Pesquisar serviço ou cliente..."
 onkeyup="renderServicos()">
@@ -226,21 +591,17 @@ onkeyup="renderServicos()">
 
 <h2>Adicionar Compromisso</h2>
 
-<input
-type="text"
+<input type="text"
 id="tarefa"
 placeholder="Compromisso">
 
-<input
-type="time"
+<input type="time"
 id="hora">
 
-<input
-type="date"
+<input type="date"
 id="dataTarefa">
 
-<button
-class="btn"
+<button class="btn"
 onclick="addTarefa()">
 
 Adicionar
@@ -253,17 +614,996 @@ Adicionar
 
 </div>
 
-<!-- FECHAMENTO DO CONTEÚDO -->
+</div>
+
+</div>
+
+<script>
+
+let servicos =
+JSON.parse(localStorage.getItem('servicos')) || [];
+
+let tarefas =
+JSON.parse(localStorage.getItem('tarefas')) || [];
+
+let clientes =
+JSON.parse(localStorage.getItem('clientes')) || [];
+
+/* TABS */
+
+function showTab(id){
+
+document.querySelectorAll('.tab')
+.forEach(tab=>tab.classList.remove('active'));
+
+document.getElementById(id)
+.classList.add('active');
+
+if(window.innerWidth < 768){
+
+document.querySelector('.sidebar')
+.classList.add('hide');
+
+}
+
+}
+
+/* MENU */
+
+function toggleMenu(){
+
+document.querySelector('.sidebar')
+.classList.toggle('hide');
+
+}
+
+/* DARK MODE */
+
+function toggleDarkMode(){
+
+document.body.classList.toggle('dark');
+
+localStorage.setItem(
+'darkMode',
+document.body.classList.contains('dark')
+);
+
+}
+
+if(localStorage.getItem('darkMode') === 'true'){
+
+document.body.classList.add('dark');
+
+}
+
+/* SAVE */
+
+function saveData(){
+
+localStorage.setItem(
+'servicos',
+JSON.stringify(servicos)
+);
+
+localStorage.setItem(
+'tarefas',
+JSON.stringify(tarefas)
+);
+
+localStorage.setItem(
+'clientes',
+JSON.stringify(clientes)
+);
+
+updateDashboard();
+
+renderGrafico();
+
+autoSalvarNuvem();
+
+}
+
+/* CLIENTES */
+
+function renderClientes(){
+
+const select =
+document.getElementById('clienteSelect');
+
+select.innerHTML =
+`<option value="">Selecionar Cliente</option>`;
+
+clientes.forEach(c=>{
+
+select.innerHTML +=
+`<option value="${c.nome}">
+${c.nome}
+</option>`;
+
+});
+
+}
+
+/* ADD SERVIÇO */
+
+function addServico(){
+
+const clienteSelect =
+document.getElementById('clienteSelect').value;
+
+const novoCliente =
+document.getElementById('novoCliente').value;
+
+const telefone =
+document.getElementById('telefoneCliente').value;
+
+const cliente =
+clienteSelect || novoCliente;
+
+const servico =
+document.getElementById('servico').value;
+
+const valor =
+document.getElementById('valor').value;
+
+const entrega =
+document.getElementById('entrega').value;
+
+const observacao =
+document.getElementById('observacao').value;
+
+const status =
+document.getElementById('status').value;
+
+if(!cliente || !servico){
+
+alert('Preencha os campos');
+return;
+
+}
+
+const existe =
+clientes.find(c=>c.nome===cliente);
+
+if(!existe){
+
+clientes.push({
+
+nome:cliente,
+telefone:telefone
+
+});
+
+}
+
+servicos.push({
+
+id:Date.now(),
+
+cliente,
+telefone,
+servico,
+valor,
+entrega,
+observacao,
+status
+
+});
+
+saveData();
+
+renderClientes();
+
+renderServicos();
+
+limparCadastro();
+
+}
+
+/* LIMPAR */
+
+function limparCadastro(){
+
+document.getElementById('novoCliente').value='';
+document.getElementById('telefoneCliente').value='';
+document.getElementById('servico').value='';
+document.getElementById('valor').value='';
+document.getElementById('entrega').value='';
+document.getElementById('observacao').value='';
+
+}
+
+/* HISTORICO */
+
+function renderServicos(){
+
+const lista =
+document.getElementById('listaServicos');
+
+const pesquisa =
+document.getElementById('pesquisa').value.toLowerCase();
+
+lista.innerHTML='';
+
+const ordenados = [...servicos]
+.sort((a,b)=>{
+
+if(a.status === 'Pronto' && b.status !== 'Pronto'){
+return 1;
+}
+
+if(a.status !== 'Pronto' && b.status === 'Pronto'){
+return -1;
+}
+
+return b.id - a.id;
+
+});
+
+ordenados.forEach(s=>{
+
+if(
+
+!s.cliente.toLowerCase().includes(pesquisa) &&
+!s.servico.toLowerCase().includes(pesquisa)
+
+){
+return;
+}
+
+let classe='pendente';
+
+if(s.status==='Em andamento'){
+classe='andamento';
+}
+
+if(s.status==='Pronto'){
+classe='pronto';
+}
+
+lista.innerHTML += `
+
+<div class="item">
+
+<h3>${s.cliente}</h3>
+
+<p><b>Serviço:</b> ${s.servico}</p>
+<p><b>Valor:</b> R$ ${s.valor}</p>
+<p><b>Entrega:</b> ${s.entrega}</p>
+<p><b>Observação:</b> ${s.observacao || '-'}</p>
+
+<span class="status ${classe}">
+${s.status}
+</span>
+
+<div class="actions">
+
+<button class="edit"
+onclick="editarServico(${s.id})">
+
+Editar
+
+</button>
+
+<button class="done"
+onclick="alterarStatus(${s.id})">
+
+Status
+
+</button>
+
+<button class="delete"
+onclick="removerServico(${s.id})">
+
+Excluir
+
+</button>
 
 </div>
 
 </div>
-<!-- IMPORTAÇÃO DOS ARQUIVOS -->
 
-<script src="app.js"></script>
+`;
 
-<script type="module" src="firebase.js"></script>
+});
+
+}
+
+/* EDITAR */
+
+function editarServico(id){
+
+const s =
+servicos.find(x=>x.id===id);
+
+const novoServico =
+prompt('Editar serviço:', s.servico);
+
+if(novoServico !== null){
+
+s.servico = novoServico;
+
+saveData();
+renderServicos();
+
+}
+
+}
+
+/* STATUS */
+
+function alterarStatus(id){
+
+const servico =
+servicos.find(s=>s.id===id);
+
+if(servico.status === 'Pendente'){
+
+servico.status='Em andamento';
+
+} else if(servico.status === 'Em andamento'){
+
+servico.status='Pronto';
+
+} else {
+
+servico.status='Pendente';
+
+}
+
+saveData();
+
+renderServicos();
+
+}
+
+/* REMOVE */
+
+function removerServico(id){
+
+if(confirm('Excluir serviço?')){
+
+servicos =
+servicos.filter(s=>s.id!==id);
+
+saveData();
+
+renderServicos();
+
+}
+
+}
+
+/* TAREFAS */
+
+function addTarefa(){
+
+const tarefa =
+document.getElementById('tarefa').value;
+
+const hora =
+document.getElementById('hora').value;
+
+const data =
+document.getElementById('dataTarefa').value;
+
+if(!tarefa){
+
+alert('Digite a tarefa');
+return;
+
+}
+
+tarefas.push({
+
+id:Date.now(),
+tarefa,
+hora,
+data,
+feito:false
+
+});
+
+saveData();
+
+renderTarefas();
+
+document.getElementById('tarefa').value='';
+document.getElementById('hora').value='';
+document.getElementById('dataTarefa').value='';
+
+}
+
+/* RENDER TAREFAS */
+
+function renderTarefas(){
+
+const lista =
+document.getElementById('listaTarefas');
+
+lista.innerHTML='';
+
+tarefas.forEach(t=>{
+
+lista.innerHTML += `
+
+<div class="item">
+
+<h3>${t.tarefa}</h3>
+
+<p>${t.data} - ${t.hora}</p>
+
+<p>
+${t.feito ? '✅ Feito' : '❌ Pendente'}
+</p>
+
+<div class="actions">
+
+<button class="done"
+onclick="toggleTarefa(${t.id})">
+
+Marcar
+
+</button>
+
+<button class="delete"
+onclick="removerTarefa(${t.id})">
+
+Excluir
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* TOGGLE */
+
+function toggleTarefa(id){
+
+const tarefa =
+tarefas.find(t=>t.id===id);
+
+tarefa.feito = !tarefa.feito;
+
+saveData();
+
+renderTarefas();
+
+}
+
+/* REMOVE TAREFA */
+
+function removerTarefa(id){
+
+tarefas =
+tarefas.filter(t=>t.id!==id);
+
+saveData();
+
+renderTarefas();
+
+}
+
+/* DASHBOARD */
+
+function updateDashboard(){
+
+const periodo =
+document.getElementById('filtroPeriodo')
+? document.getElementById('filtroPeriodo').value
+: 'todos';
+
+let lista = [...servicos];
+
+const hoje = new Date();
+
+ if(periodo === 'hoje'){
+
+lista = lista.filter(s=>{
+
+if(!s.entrega) return false;
+
+return s.entrega ===
+hoje.toISOString().split('T')[0];
+
+});
+
+}
+
+ if(periodo === 'semana'){
+
+const inicioSemana =
+new Date(hoje);
+
+inicioSemana.setDate(
+hoje.getDate() - hoje.getDay()
+);
+
+const fimSemana =
+new Date(inicioSemana);
+
+fimSemana.setDate(
+inicioSemana.getDate() + 6
+);
+
+lista = lista.filter(s=>{
+
+if(!s.entrega) return false;
+
+const data =
+new Date(s.entrega);
+
+return data >= inicioSemana &&
+data <= fimSemana;
+
+});
+
+}
+
+ if(periodo === 'mes'){
+
+lista = lista.filter(s=>{
+
+if(!s.entrega) return false;
+
+const data =
+new Date(s.entrega);
+
+return data.getMonth() === hoje.getMonth()
+&&
+data.getFullYear() === hoje.getFullYear();
+
+});
+
+}
+
+ if(periodo === 'ano'){
+
+lista = lista.filter(s=>{
+
+if(!s.entrega) return false;
+
+const data =
+new Date(s.entrega);
+
+return data.getFullYear() ===
+hoje.getFullYear();
+
+});
+
+}
+ 
+document.getElementById('totalServicos')
+.innerText = lista.length;
+
+document.getElementById('totalCompromissos')
+.innerText = tarefas.length;
+
+let pronto = 0;
+let pendente = 0;
+
+lista.forEach(s=>{
+
+if(s.status === 'Pronto'){
+
+pronto += Number(s.valor || 0);
+
+} else {
+
+pendente += Number(s.valor || 0);
+
+}
+
+});
+
+document.getElementById('valorPronto')
+.innerText = 'R$ ' + pronto.toFixed(2);
+
+document.getElementById('valorPendente')
+.innerText = 'R$ ' + pendente.toFixed(2);
+
+}
+
+/* GRAFICO */
+
+let chart;
+
+function renderGrafico(){
+
+    const periodo =
+    document.getElementById('filtroPeriodo')
+    ? document.getElementById('filtroPeriodo').value
+    : 'todos';
+
+    let lista = [...servicos];
+
+    const hoje = new Date();
+
+    /* FILTRO SEMANA */
+
+    if(periodo === 'semana'){
+
+        lista = lista.filter(s=>{
+
+            if(!s.entrega) return false;
+
+            const data = new Date(s.entrega);
+
+            const diff =
+            (hoje - data) / (1000 * 60 * 60 * 24);
+
+            return diff <= 7;
+
+        });
+
+    }
+
+    /* FILTRO MÊS */
+
+    if(periodo === 'mes'){
+
+        lista = lista.filter(s=>{
+
+            if(!s.entrega) return false;
+
+            const data = new Date(s.entrega);
+
+            return (
+                data.getMonth() === hoje.getMonth() &&
+                data.getFullYear() === hoje.getFullYear()
+            );
+
+        });
+
+    }
+
+    /* FILTRO ANO */
+
+    if(periodo === 'ano'){
+
+        lista = lista.filter(s=>{
+
+            if(!s.entrega) return false;
+
+            const data = new Date(s.entrega);
+
+            return (
+                data.getFullYear() === hoje.getFullYear()
+            );
+
+        });
+
+    }
+
+    /* CONTADORES */
+
+    const pendentes =
+    lista.filter(
+        s => s.status === 'Pendente'
+    ).length;
+
+    const andamento =
+    lista.filter(
+        s => s.status === 'Em andamento'
+    ).length;
+
+    const prontos =
+    lista.filter(
+        s => s.status === 'Pronto'
+    ).length;
+
+    const ctx =
+    document.getElementById('grafico');
+
+    if(chart){
+        chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+
+        type:'doughnut',
+
+        data:{
+
+            labels:[
+                'Pendentes',
+                'Em andamento',
+                'Prontos'
+            ],
+
+            datasets:[{
+
+                data:[
+                    pendentes,
+                    andamento,
+                    prontos
+                ]
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            plugins:{
+
+                legend:{
+                    position:'bottom'
+                }
+
+            }
+
+        }
+
+    });
+
+}
+/* BACKUP */
+
+function backupData(){
+
+const dados = {
+
+servicos,
+tarefas,
+clientes
+
+};
+
+const blob =
+new Blob(
+[JSON.stringify(dados)],
+{type:'application/json'}
+);
+
+const a =
+document.createElement('a');
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+'backup-organizador.json';
+
+a.click();
+
+}
+
+/* RESTORE */
+
+document.getElementById('restoreFile')
+.addEventListener('change', function(e){
+
+const file = e.target.files[0];
+
+const reader = new FileReader();
+
+reader.onload = function(event){
+
+const dados =
+JSON.parse(event.target.result);
+
+servicos = dados.servicos || [];
+tarefas = dados.tarefas || [];
+clientes = dados.clientes || [];
+
+saveData();
+
+renderClientes();
+renderServicos();
+renderTarefas();
+
+alert('Backup restaurado!');
+
+};
+
+reader.readAsText(file);
+
+});
+
+renderClientes();
+renderServicos();
+renderTarefas();
+updateDashboard();
+renderGrafico();
+
+</script>
+
+<!-- FIREBASE -->
+
+<!-- FIREBASE REALTIME -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+
+import {
+
+getFirestore,
+doc,
+setDoc,
+onSnapshot
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyBzpZz666Vsuuxx_FvBTIITCxyHJwRx4K0",
+
+authDomain:
+"organizador-web-58a32.firebaseapp.com",
+
+projectId:
+"organizador-web-58a32",
+
+storageBucket:
+"organizador-web-58a32.firebasestorage.app",
+
+messagingSenderId:
+"868666016791",
+
+appId:
+"1:868666016791:web:ad99b7ca5f55fac9dd4852"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+/* ========================================= */
+/* AUTO SALVAR NA NUVEM */
+/* ========================================= */
+
+window.autoSalvarNuvem =
+async function(){
+
+try{
+
+await setDoc(
+
+doc(db, "backup", "dados"),
+
+{
+
+servicos,
+tarefas,
+clientes,
+
+data:
+new Date().toLocaleString()
+
+}
+
+);
+
+console.log("Sincronizado");
+
+}catch(e){
+
+console.log(e);
+
+}
+
+}
+
+/* ========================================= */
+/* SALVAR MANUAL */
+/* ========================================= */
+
+window.salvarNuvem =
+async function(){
+
+await autoSalvarNuvem();
+
+alert('Salvo na nuvem!');
+
+}
+
+/* ========================================= */
+/* RESTAURAR MANUAL */
+/* ========================================= */
+
+window.restaurarNuvem =
+async function(){
+
+alert(
+'Sincronização automática ativada.'
+);
+
+}
+
+/* ========================================= */
+/* TEMPO REAL */
+/* ========================================= */
+
+onSnapshot(
+
+doc(db, "backup", "dados"),
+
+(documento)=>{
+
+if(documento.exists()){
+
+const dados =
+documento.data();
+
+/* evita loop infinito */
+
+const novosServicos =
+JSON.stringify(dados.servicos || []);
+
+const servicosAtuais =
+JSON.stringify(servicos);
+
+if(novosServicos !== servicosAtuais){
+
+servicos =
+dados.servicos || [];
+
+tarefas =
+dados.tarefas || [];
+
+clientes =
+dados.clientes || [];
+
+/* salva local */
+
+localStorage.setItem(
+'servicos',
+JSON.stringify(servicos)
+);
+
+localStorage.setItem(
+'tarefas',
+JSON.stringify(tarefas)
+);
+
+localStorage.setItem(
+'clientes',
+JSON.stringify(clientes)
+);
+
+/* renderiza */
+
+renderClientes();
+
+renderServicos();
+
+renderTarefas();
+
+updateDashboard();
+
+renderGrafico();
+
+console.log(
+"Atualizado em tempo real"
+);
+
+}
+
+}
+
+}
+
+);
+
+</script>
 
 </body>
-
 </html>
